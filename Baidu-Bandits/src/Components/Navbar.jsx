@@ -1,7 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import dashboard from '../assets/dashboard-svgrepo-com (3).svg';
+import activity from '../assets/activity-tracker-fitness-svgrepo-com.svg';
+import doc from '../assets/doctor-bag-svgrepo-com.svg';
+import mental from '../assets/mental-health-svgrepo-com.svg';
+import nutri from '../assets/i-nutrition-svgrepo-com.svg';
+import gym from '../assets/gym-svgrepo-com.svg';
+import logout from '../assets/logout-svgrepo-com.svg';
 
 const Navbar = () => {
+  const location = useLocation();
+  const getLinkStyle = (path) => ({
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    padding: '7px',
+    borderRadius: '10px',
+    backgroundColor: location.pathname === path ? 'black' : 'transparent',
+    color: location.pathname === path ? '#ffffff' : '#adb3bc',
+  });
+
   return (
     <div
       style={{
@@ -10,8 +28,8 @@ const Navbar = () => {
         flexDirection: 'column',
         justifyContent: 'space-between',
         height: '100vh',
-        paddingLeft: '10px',
         background: '#fafafa',
+        padding: '5px',
       }}
     >
       <div
@@ -19,50 +37,69 @@ const Navbar = () => {
           display: 'flex',
           flexDirection: 'column',
           fontFamily: 'sans-serif',
-          gap: '50px',
+          gap: '30px',
           fontSize: '20px',
         }}
       >
         <h1>Logo</h1>
-        <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
-          Dashboard
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <div style={getLinkStyle('/')}>
+            <img src={dashboard} alt="" width="35px" />
+            Dashboard
+          </div>
         </Link>
-        <Link
-          to="/activitytracker"
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
-          Activity Tracker
+        <Link to="/activitytracker" style={{ textDecoration: 'none' }}>
+          <div style={getLinkStyle('/activitytracker')}>
+            <img src={activity} alt="" width="35px" />
+            Activity Tracker
+          </div>
         </Link>
-        <Link
-          to="/doctorappointment"
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
-          Doctor Appointment
+        <Link to="/doctorappointment" style={{ textDecoration: 'none' }}>
+          <div style={getLinkStyle('/doctorappointment')}>
+            <img src={doc} alt="" width="35px" />
+            Doctor Appointment
+          </div>
         </Link>
-        <Link
-          to="/mentalwellness"
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
-          Mental Wellness
+        <Link to="/mentalwellness" style={{ textDecoration: 'none' }}>
+          <div style={getLinkStyle('/mentalwellness')}>
+            <img src={mental} alt="" width="35px" />
+            Mental Wellness
+          </div>
         </Link>
-        <Link
-          to="/nutrition"
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
-          Nutrition
+        <Link to="/nutrition" style={{ textDecoration: 'none' }}>
+          <div style={getLinkStyle('/nutrition')}>
+            <img src={nutri} alt="" width="35px" />
+            Nutrition
+          </div>
         </Link>
-        <Link
-          to="/personaltraining"
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
-          Personal Training
+        <Link to="/personaltraining" style={{ textDecoration: 'none' }}>
+          <div style={getLinkStyle('/personaltraining')}>
+            <img src={gym} alt="" width="35px" />
+            Personal Training
+          </div>
         </Link>
       </div>
       <div style={{ marginBottom: '20%' }}>
         <button
-          style={{ fontSize: '25px', border: 'none', background: 'none' }}
+          style={{
+            fontSize: '25px',
+            border: 'none',
+            background: 'none',
+            color: '#adb3bc',
+          }}
         >
-          Logout
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              padding: '5px',
+              borderRadius: '10px',
+            }}
+          >
+            <img src={logout} alt="" width="30px" />
+            Logout
+          </div>
         </button>
       </div>
     </div>
