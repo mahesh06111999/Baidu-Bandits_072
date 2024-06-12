@@ -9,7 +9,7 @@ const ExerciseRecommendation = ({ formData }) => {
     "Incorporate strength training exercises such as squats, lunges, and push-ups into your routine.",
     "Try high-intensity interval training (HIIT) workouts for a quick and effective calorie burn.",
     "Explore yoga or Pilates for improved flexibility, balance, and relaxation.",
-    "Join group fitness classes like cycling, Zumba, or kickboxing for a fun and motivating workout.",
+    "Join group fitness classes like cyclingg, Zumba, or kickboxing for a fun and motivating workout.",
   ];
 
   return (
