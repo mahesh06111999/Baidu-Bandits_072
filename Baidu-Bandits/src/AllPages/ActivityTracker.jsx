@@ -23,6 +23,7 @@ import ExerciseRecommendation from './ExerciseRecommendation';
 
 
 import { motion } from 'framer-motion';
+import DynamicForm from '../Components/DynamicForm';
 
 
 // import './animations.css';  // Import the CSS animations
@@ -189,42 +190,7 @@ const ActivityTracker = () => {
             <Heading as="h2" size="xl" mb={4}>
              Get personalised recommendation !
             </Heading>
-            <form onSubmit={handleSubmit}>
-              <VStack spacing={4} align="center">
-                {questions.map((question, index) => (
-                  <Fade key={index} in={currentQuestion === index}>
-                    <Box>
-                      <Text>{question.label}</Text>
-                      <Select
-                        name={question.value}
-                        value={formData[question.value]}
-                        onChange={handleSelectChange}
-                        placeholder={`Select ${question.value}`}
-                      >
-                        {question.options.map((option, idx) => (
-                          <option key={idx} value={option}>
-                            {option}
-                          </option>
-                        ))}
-                      </Select>
-                    </Box>
-                  </Fade>
-                ))}
-                {currentQuestion < questions.length && (
-                  <Button
-                    colorScheme="teal"
-                    size="lg"
-                    type="submit"
-                    as={motion.button}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    disabled={formData[questions[currentQuestion].value]} // Disable button if no option selected
-                  >
-                   Recommendation
-                  </Button>
-                )}
-              </VStack>
-            </form>
+            <DynamicForm />
           </Box>
         </Fade>
       ) : (
