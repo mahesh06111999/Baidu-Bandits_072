@@ -1,9 +1,10 @@
 import { Box, Button, Center, Flex, Input } from "@chakra-ui/react"
 import {auth, googleProvider} from "../auth/firebase"
 import { useState } from "react";
-import { createUserWithEmailAndPassword ,signInWithEmailAndPassword,  signInWithPopup, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword ,signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 export const Auth = ({setres}) => {
+    const [sign, setSign] = useState(true);
     const [email, setemail] = useState('');
     const [pass, setpass] = useState('');
     console.log(auth?.currentUser);
@@ -31,14 +32,7 @@ export const Auth = ({setres}) => {
         }
     }
 
-    const signInWithGoogle = async()=>{
-        try {
-            
-            await signInWithPopup(auth,googleProvider)
-        } catch (error) {
-            console.error(error);
-        }
-    }
+   
 
     const signOff = async()=>{
         try {
@@ -60,8 +54,7 @@ export const Auth = ({setres}) => {
             </form>
         </Box>
 
-        <Button onClick={signInWithGoogle}>Sing In With Google</Button>
-         
+        
     </Center>
   )
 }

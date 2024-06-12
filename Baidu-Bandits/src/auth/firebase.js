@@ -15,20 +15,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig); 
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider()
-// const db?
-export const signOff = async()=>{
-  try {
+
+// export const signOff = async()=>{
+//   try {
       
-      await signOut(auth)
+//       await signOut(auth)
       
-  }
-   catch (error) {
-      console.error(error);
-  }
-  finally{
-    console.log("logged. out");
-  }
-}
+//   }
+//    catch (error) {
+//       console.error(error);
+//   }
+//   finally{
+//     console.log("logged. out");
+//   }
+// }
 // firebase login
 // firebase init
 // firebase deploy
