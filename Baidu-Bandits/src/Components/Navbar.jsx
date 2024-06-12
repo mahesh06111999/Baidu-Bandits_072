@@ -16,7 +16,7 @@ const Navbar = () => {
     gap: '10px',
     padding: '7px',
     borderRadius: '10px',
-    backgroundColor: location.pathname === path ? 'black' : 'transparent',
+    backgroundColor: location.pathname === path ? '#11a5bc' : 'transparent',
     color: location.pathname === path ? '#ffffff' : '#adb3bc',
   });
 
@@ -37,7 +37,7 @@ const Navbar = () => {
           display: 'flex',
           flexDirection: 'column',
           fontFamily: 'sans-serif',
-          gap: '30px',
+          gap: '25px',
           fontSize: '20px',
         }}
       >
