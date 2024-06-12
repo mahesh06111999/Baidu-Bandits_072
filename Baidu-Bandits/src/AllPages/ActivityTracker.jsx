@@ -1,10 +1,25 @@
 // import React from 'react';
 
-const ActivityTracker = () => {
-  return <div>
-    <h1>ActivityTracker</h1>
+import { useState } from "react";
+import { auth } from "../auth/firebase";
+import { Auth } from "../Components/Auth";
 
-  </div>;
+const ActivityTracker = () => {
+  const [res, setres] = useState(true);
+  return( 
+    
+      <>
+      {
+        auth?.currentUser?.email ===undefined ? (<Auth setres={setres}/>):
+        (
+          <h1>ActivityTracker</h1>
+          
+  
+        )
+      }
+      
+      </>
+)
 };
 
 export default ActivityTracker;

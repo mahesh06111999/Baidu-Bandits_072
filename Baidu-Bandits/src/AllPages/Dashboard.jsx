@@ -1,7 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Auth } from '../Components/Auth';
+import {auth} from "../auth/firebase"
 
 const Dashboard = () => {
-  return <div>Dashboard</div>;
+  const [res, setres] = useState(true);
+  return(
+    <>
+    {
+      auth?.currentUser?.email ===undefined ? (<Auth setres={setres}/>):
+      (
+        <h1>dash</h1>
+        
+
+      )
+    }
+    
+    </>
+  ) 
+  
 };
 
 export default Dashboard;

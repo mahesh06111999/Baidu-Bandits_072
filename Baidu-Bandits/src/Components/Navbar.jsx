@@ -7,9 +7,26 @@ import mental from '../assets/mental-health-svgrepo-com.svg';
 import nutri from '../assets/i-nutrition-svgrepo-com.svg';
 import gym from '../assets/gym-svgrepo-com.svg';
 import logout from '../assets/logout-svgrepo-com.svg';
+import { auth } from '../auth/firebase';
+import { signOut } from 'firebase/auth';
 
 const Navbar = () => {
   const location = useLocation();
+  const signOff = async()=>{
+    try {
+        
+        await signOut(auth)
+        
+    }
+     catch (error) {
+        console.error(error);
+    }
+    finally{
+      console.log("logged. out");
+    }
+  }
+  
+
   const getLinkStyle = (path) => ({
     display: 'flex',
     alignItems: 'center',
@@ -96,6 +113,7 @@ const Navbar = () => {
               padding: '5px',
               borderRadius: '10px',
             }}
+            onClick={signOff}
           >
             <img src={logout} alt="" width="30px" />
             Logout
