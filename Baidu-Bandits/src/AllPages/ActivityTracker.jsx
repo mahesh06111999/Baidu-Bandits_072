@@ -1,7 +1,10 @@
-import React from 'react';
+// import React from 'react';
 
 const ActivityTracker = () => {
-  return <div>ActivityTracker</div>;
+  return <div>
+    <h1>ActivityTracker</h1>
+
+  </div>;
 };
 
 export default ActivityTracker;
