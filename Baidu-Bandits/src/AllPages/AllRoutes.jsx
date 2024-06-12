@@ -9,7 +9,7 @@ import PersonalTraining from './PersonalTraining';
 
 const AllRoutes = () => {
   return (
-    <div style={{ width: '85%' }}>
+    <div style={{ width: '63%' }}>
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/activitytracker" element={<ActivityTracker />} />
