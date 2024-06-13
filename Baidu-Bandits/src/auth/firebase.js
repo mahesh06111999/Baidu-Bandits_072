@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
-import {getAuth,GoogleAuthProvider} from 'firebase/auth'
+import {getAuth} from 'firebase/auth'
+import { getFirestore } from "firebase/firestore";
 
+import { doc, setDoc } from "firebase/firestore"; 
 
 const firebaseConfig = {
   apiKey: "AIzaSyBz6pYi8-oTCXV_NnIvVaJk_lnG6SXfTS0",
@@ -14,21 +16,17 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig); 
 export const auth = getAuth(app);
-export const googleProvider = new GoogleAuthProvider()
-// const db?
-export const signOff = async()=>{
-  try {
-      
-      await signOut(auth)
-      
-  }
-   catch (error) {
-      console.error(error);
-  }
-  finally{
-    console.log("logged. out");
-  }
-}
+export const db = getFirestore(app);
+
 // firebase login
 // firebase init
 // firebase deploy
+
+
+// Add a new document in collection "cities"
+const userId=auth?.currentUser?.email
+await setDoc(doc(db, "user","userId" ), {
+
+calories:[23,45,68,4,7,343,756,345,45,45,45,45,445,636,]
+
+});
