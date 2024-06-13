@@ -7,7 +7,7 @@ import mental from '../assets/mental-health-svgrepo-com.svg';
 import nutri from '../assets/i-nutrition-svgrepo-com.svg';
 import gym from '../assets/gym-svgrepo-com.svg';
 import logout from '../assets/logout-svgrepo-com.svg';
-
+import home from '../assets/home-1-svgrepo-com.svg';
 const Navbar = () => {
   const location = useLocation();
   const getLinkStyle = (path) => ({
@@ -44,6 +44,12 @@ const Navbar = () => {
         <h1>Logo</h1>
         <Link to="/" style={{ textDecoration: 'none' }}>
           <div style={getLinkStyle('/')}>
+            <img src={home} alt="" width="35px" />
+            Home
+          </div>
+        </Link>
+        <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+          <div style={getLinkStyle('/dashboard')}>
             <img src={dashboard} alt="" width="35px" />
             Dashboard
           </div>
