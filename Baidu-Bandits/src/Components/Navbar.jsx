@@ -9,6 +9,7 @@ import gym from '../assets/gym-svgrepo-com.svg';
 import logout from '../assets/logout-svgrepo-com.svg';
 import { auth } from '../auth/firebase';
 import { signOut } from 'firebase/auth';
+import { Alert, AlertIcon } from '@chakra-ui/react';
 
 const Navbar = () => {
   const location = useLocation();
@@ -22,7 +23,12 @@ const Navbar = () => {
         console.error(error);
     }
     finally{
-      console.log("logged. out");
+      
+      setTimeout(() => {
+        window.location.reload();
+        
+      }, 1000);
+      
     }
   }
   
