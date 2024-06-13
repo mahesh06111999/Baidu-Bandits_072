@@ -1,6 +1,72 @@
 import React, { useState } from 'react';
+import {
+  Radio,
+  RadioGroup,
+  Stack,
+  Text,
+  Checkbox,
+  useToast,
+} from '@chakra-ui/react';
 
 const DoctorAppointment = () => {
+  const [formData, setFormData] = useState({
+    title: '',
+    fullName: '',
+    email: '',
+    mobile: '',
+    date: '',
+    time: '',
+    problem: '',
+    terms: true,
+  });
+
+  const [bookedSlots, setBookedSlots] = useState({});
+  const toast = useToast();
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value,
+    });
+  };
+
+  const handleDateChange = (e) => {
+    setFormData({ ...formData, date: e.target.value, time: '' });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { date, time } = formData;
+
+    // Add the booked time slot to the bookedSlots state
+    setBookedSlots((prevSlots) => ({
+      ...prevSlots,
+      [date]: [...(prevSlots[date] || []), time],
+    }));
+
+    console.log(formData);
+    toast({
+      title: 'Appointment booked.',
+      description: "We've received your appointment request.",
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    });
+
+    // Reset form fields
+    setFormData({
+      title: '',
+      fullName: '',
+      email: '',
+      mobile: '',
+      date: '',
+      time: '',
+      problem: '',
+      terms: true,
+    });
+  };
+
   const times = [
     '9:00',
     '9:30',
@@ -18,147 +84,162 @@ const DoctorAppointment = () => {
     '4:30',
   ];
 
-  const initialFormState = {
-    name: '',
-    age: '',
-    gender: '',
-    date: '',
-    time: '',
-  };
-
-  const [formData, setFormData] = useState(initialFormState);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    setFormData(initialFormState);
-  };
-
-  const inputbox = {
-    padding: '5px',
-    border: '1px solid black',
-    borderRadius: '10px',
-    width: '350px',
-  };
-
-  const divstyle = {
-    fontSize: '25px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '10px',
-  };
-
-  const btnstyle = {
-    background: '#11a5bc',
-    width: '100%',
-    padding: '10px',
-    borderRadius: '10px',
-    color: 'white',
-    fontSize: '20px',
-    fontWeight: 'bold',
-    boxSizing: 'border-box',
-  };
+  const availableTimes = formData.date
+    ? times.filter((time) => !(bookedSlots[formData.date] || []).includes(time))
+    : times;
 
   return (
     <div
       style={{
-        display: 'flex',
-        alignItems: 'center',
-        marginTop: '100px',
-        flexDirection: 'column',
         fontFamily: 'sans-serif',
-        width: '550px',
-        marginLeft: '23%',
-        borderRadius: '10px',
-        padding: '10px',
-        boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
+        display: 'flex',
+        justifyContent: 'center',
       }}
     >
-      <p style={{ fontSize: '30px' }}>Book Appointment</p>
       <form
         onSubmit={handleSubmit}
         style={{
-          width: '500px',
-          padding: '10px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '10px',
+          alignItems: 'center',
+          fontSize: '20px',
+          width: '90%',
+          marginTop: '10%',
+          gap: '50px',
+          padding: '20px',
         }}
       >
-        <div style={divstyle}>
-          <label>Name : </label>
+        <Text fontSize="4xl" color="#11a5bc">
+          Make An Appointment
+        </Text>
+        <div style={{ display: 'flex', gap: '30px', alignItems: 'center' }}>
+          <RadioGroup
+            name="title"
+            value={formData.title}
+            onChange={(value) => setFormData({ ...formData, title: value })}
+          >
+            <Stack spacing={5} direction="row">
+              <Radio colorScheme="teal" value="Mr" size="lg">
+                Mr
+              </Radio>
+              <Radio colorScheme="teal" value="Mrs" size="lg">
+                Mrs
+              </Radio>
+            </Stack>
+          </RadioGroup>
           <input
             type="text"
-            name="name"
-            value={formData.name}
+            name="fullName"
+            placeholder="Full Name *"
+            value={formData.fullName}
             onChange={handleChange}
-            style={inputbox}
+            style={{
+              borderBottom: '1px solid grey',
+              width: '500px',
+              fontSize: '20px',
+              padding: '3px',
+            }}
           />
         </div>
-
-        <div style={divstyle}>
-          <label>Age : </label>
+        <div style={{ display: 'flex', gap: '55px' }}>
           <input
-            type="number"
-            name="age"
-            value={formData.age}
+            type="text"
+            name="email"
+            placeholder="Email Address *"
+            value={formData.email}
             onChange={handleChange}
-            max={100}
-            min={10}
-            style={inputbox}
+            style={{
+              borderBottom: '1px solid grey',
+              width: '300px',
+              fontSize: '20px',
+            }}
+          />
+          <input
+            type="text"
+            name="mobile"
+            placeholder="Mobile Number *"
+            value={formData.mobile}
+            onChange={handleChange}
+            style={{
+              borderBottom: '1px solid grey',
+              width: '300px',
+              fontSize: '20px',
+            }}
           />
         </div>
-
-        <div style={divstyle}>
-          <label>Gender : </label>
-          <select
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            style={inputbox}
-          >
-            <option value="">Gender</option>
-            <option value="men">Men</option>
-            <option value="women">Women</option>
-          </select>
-        </div>
-
-        <div style={divstyle}>
-          <label>Date : </label>
+        <div style={{ display: 'flex', gap: '55px' }}>
           <input
             type="date"
             name="date"
             value={formData.date}
-            onChange={handleChange}
-            style={inputbox}
+            onChange={handleDateChange}
+            style={{
+              borderBottom: '1px solid grey',
+              width: '300px',
+              fontSize: '20px',
+            }}
             min={new Date().toISOString().split('T')[0]}
           />
-        </div>
-
-        <div style={divstyle}>
-          <label>Time : </label>
           <select
             name="time"
             value={formData.time}
             onChange={handleChange}
-            style={inputbox}
+            style={{
+              borderBottom: '1px solid grey',
+              width: '300px',
+              fontSize: '20px',
+            }}
           >
-            <option value=""></option>
-            {times.map((item) => (
+            <option value="">hh:mm</option>
+            {availableTimes.map((item) => (
               <option key={item} value={item}>
                 {item}
               </option>
             ))}
           </select>
         </div>
-
-        <button style={btnstyle} type="submit">
+        <div>
+          <input
+            type="text"
+            name="problem"
+            placeholder="Your Problem Summary..."
+            value={formData.problem}
+            onChange={handleChange}
+            style={{
+              borderBottom: '1px solid grey',
+              width: '650px',
+              fontSize: '20px',
+            }}
+          />
+        </div>
+        <div style={{ marginLeft: '-27%' }}>
+          <Checkbox
+            name="terms"
+            isChecked={formData.terms}
+            onChange={handleChange}
+            size="md"
+            colorScheme="teal"
+          >
+            <span style={{ color: 'grey' }}>I agree to your </span>
+            <span style={{ textDecoration: 'underline', color: 'grey' }}>
+              Terms of Service{' '}
+            </span>
+            <span style={{ color: 'grey' }}>and </span>
+            <span style={{ textDecoration: 'underline', color: 'grey' }}>
+              Privacy Policy.
+            </span>
+          </Checkbox>
+        </div>
+        <button
+          type="submit"
+          style={{
+            background: '#11a5bc',
+            width: '70%',
+            color: 'white',
+            padding: '10px',
+            fontSize: '20px',
+          }}
+        >
           Book
         </button>
       </form>
