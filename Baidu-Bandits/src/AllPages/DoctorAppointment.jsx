@@ -39,7 +39,6 @@ const DoctorAppointment = () => {
     e.preventDefault();
     const { date, time } = formData;
 
-    // Add the booked time slot to the bookedSlots state
     setBookedSlots((prevSlots) => ({
       ...prevSlots,
       [date]: [...(prevSlots[date] || []), time],
@@ -54,7 +53,6 @@ const DoctorAppointment = () => {
       isClosable: true,
     });
 
-    // Reset form fields
     setFormData({
       title: '',
       fullName: '',
@@ -139,6 +137,7 @@ const DoctorAppointment = () => {
               fontSize: '20px',
               padding: '3px',
             }}
+            required
           />
         </div>
         <div style={{ display: 'flex', gap: '55px' }}>
@@ -153,6 +152,7 @@ const DoctorAppointment = () => {
               width: '300px',
               fontSize: '20px',
             }}
+            required
           />
           <input
             type="text"
@@ -165,6 +165,7 @@ const DoctorAppointment = () => {
               width: '300px',
               fontSize: '20px',
             }}
+            required
           />
         </div>
         <div style={{ display: 'flex', gap: '55px' }}>
@@ -179,6 +180,7 @@ const DoctorAppointment = () => {
               fontSize: '20px',
             }}
             min={new Date().toISOString().split('T')[0]}
+            required
           />
           <select
             name="time"
@@ -189,6 +191,7 @@ const DoctorAppointment = () => {
               width: '300px',
               fontSize: '20px',
             }}
+            required
           >
             <option value="">hh:mm</option>
             {availableTimes.map((item) => (
@@ -210,6 +213,7 @@ const DoctorAppointment = () => {
               width: '650px',
               fontSize: '20px',
             }}
+            required
           />
         </div>
         <div style={{ marginLeft: '-27%' }}>
