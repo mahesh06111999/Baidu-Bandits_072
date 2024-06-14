@@ -60,8 +60,9 @@ const ActivityTracker = () => {
           {!showActivities ? (
             <>
               <Fade in={!showActivities}>
-                <Box textAlign="center" py={10} px={6}>
-                  <Heading as="h2" size="xl" mb={4}>
+                <Box textAlign="center" py={10} px={6} p="20px">
+                  <Heading as="h2" size="xl" mb={4}  bgColor="#11a5bc"
+                    color="white">
                     Welcome to Activity Tracker
                   </Heading>
                   <Center>
@@ -78,7 +79,8 @@ const ActivityTracker = () => {
                   </Text>
 
                   <Button
-                    colorScheme="teal"
+                    bgColor="#11a5bc"
+                    color="white"
                     size="lg"
                     onClick={() => setShowActivities(true)}
                     as={motion.button}

@@ -79,7 +79,7 @@ const DynamicForm = () => {
 
   return (
     <Box maxW="xll" mx="auto" mt={10} p={6} bg={formBgColor} borderRadius="md" boxShadow="lg">
-      <Heading mb={6} textAlign="center" color="white" bgColor="#2385aa">Weekly Workout Tracker</Heading>
+      <Heading mb={6} textAlign="center" color="white" bgColor="#11a5bc" maxH="100px">Weekly Workout Tracker</Heading>
       
       <Box mb={8} textAlign="center">
         <Flex>
