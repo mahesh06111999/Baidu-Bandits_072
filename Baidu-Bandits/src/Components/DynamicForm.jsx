@@ -1,103 +1,215 @@
-// src/components/DynamicForm.js
-// import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateForm, resetForm } from '../redux/formSlice';
+import  { useState, useEffect } from 'react';
 import {
-  FormControl,
-  FormLabel,
+  
   Input,
   Select,
-  Textarea,
-  CheckboxGroup,
-  Checkbox,
+  RadioGroup,
+  Radio,
   Button,
   Stack,
   Box,
   Heading,
+  VStack,
+  useColorModeValue,
+  SimpleGrid,
+  Icon,
+  Text,
+  HStack,
+  Image,
+  Flex,
 } from '@chakra-ui/react';
+import { FaRunning, FaBurn, FaWalking, FaClock, FaEdit, FaSave, FaCalendarAlt, FaClock as FaTime } from 'react-icons/fa';
 
 const DynamicForm = () => {
-  const dispatch = useDispatch();
-  const formData = useSelector((state) => state.form);
+  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  const handleChange = (e) => {
+  // State for form data for each day
+  const [weeklyData, setWeeklyData] = useState({});
+  const [editMode, setEditMode] = useState({});
+
+  useEffect(() => {
+    // Load form data from local storage
+    const storedData = JSON.parse(localStorage.getItem('weeklyData'));
+    if (storedData) {
+      setWeeklyData(storedData);
+    }
+  }, []);
+
+  const handleChange = (e, day) => {
     const { name, value } = e.target;
-    dispatch(updateForm({ [name]: value }));
+    setWeeklyData({
+      ...weeklyData,
+      [day]: {
+        ...weeklyData[day],
+        [name]: value,
+      },
+    });
   };
 
-  const handleMultiSelectChange = (e) => {
-    const { name, options } = e.target;
-    const selectedValues = Array.from(options)
-      .filter((option) => option.selected)
-      .map((option) => option.value);
-    dispatch(updateForm({ [name]: selectedValues }));
+  const handleRadioChange = (value, name, day) => {
+    setWeeklyData({
+      ...weeklyData,
+      [day]: {
+        ...weeklyData[day],
+        [name]: value,
+      },
+    });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    dispatch(resetForm());
+  const handleSave = (day) => {
+    const currentDate = new Date();
+    setWeeklyData({
+      ...weeklyData,
+      [day]: {
+        ...weeklyData[day],
+        lastUpdated: currentDate.toLocaleDateString(),
+        lastUpdatedTime: currentDate.toLocaleTimeString(),
+      },
+    });
+    setEditMode({
+      ...editMode,
+      [day]: false,
+    });
+    localStorage.setItem('weeklyData', JSON.stringify(weeklyData));
   };
+
+  const formBgColor = useColorModeValue('gray.50', 'gray.700');
+  // const formTextColor = useColorModeValue('gray.800', 'white');
+  const formBorderColor = useColorModeValue('gray.200', 'gray.600');
 
   return (
-    <Box maxW="md" mx="auto" mt={5}>
-      <Heading mb={4} >Enter details</Heading>
-      <form onSubmit={handleSubmit}>
-        <Stack spacing={4}>
+    <Box maxW="xll" mx="auto" mt={10} p={6} bg={formBgColor} borderRadius="md" boxShadow="lg">
+      <Heading mb={6} textAlign="center" color="white" bgColor="#2385aa">Weekly Workout Tracker</Heading>
+      
+      <Box mb={8} textAlign="center">
+        <Flex>
+        <Image
+          src="https://img.freepik.com/free-vector/sport-fitness-tracker-abstract-concept-vector-illustration-activity-band-health-monitor-wrist-worn-device-application-running-cycling-every-day-training-abstract-metaphor_335657-1454.jpg?t=st=1718180351~exp=1718183951~hmac=48849305ff35333c08fb67262664b70e984691795e8c383900c5b37e1e2d9b9e&w=740"
+          alt="Activity Tracker"
+          maxW="960px" maxH="200px"
+        />
+         <Image
+          src="https://img.freepik.com/premium-vector/fitness-concept-fitness-training-running-shoes-outline-style-illustration-with-run-sport-icons-fitness-training-design-elements-vector-illustration_6280-924.jpg?w=1380"
+          alt="Activity Tracker"
+          maxW="960px" maxH="200px"
+        />
+        <Image
+          src="https://img.freepik.com/free-vector/appointment-booking-with-smartphone_23-2148554312.jpg?t=st=1718349663~exp=1718353263~hmac=800f63cd074ca2919d99489b7556d60a2ad9b7f8090fc06b6be8d0c0f1085de4&w=826"
+          alt="Activity Tracker"
+          maxW="960px" maxH="200px"
+        />
+       
+        </Flex>
+      </Box>
 
-          <FormControl id="weight" isRequired>
-            <FormLabel>Weight</FormLabel>
-            <Input type="number" name="weight" value={formData.weight} onChange={handleChange} />
-          </FormControl>
-
-          <FormControl id="healthIssues">
-            <FormLabel>Any Health Issues</FormLabel>
-            <Textarea name="healthIssues" value={formData.healthIssues} onChange={handleChange} />
-          </FormControl>
-
-         
-
-          <FormControl id="waterIntake" isRequired>
-            <FormLabel>Water Intake</FormLabel>
-            <Select name="waterIntake" value={formData.waterIntake} onChange={handleChange}>
-              <option value="">Select</option>
-              <option value="1-2">1-2 liters</option>
-              <option value="2-4">2-4 liters</option>
-              <option value="4-6">4-6 liters</option>
-              <option value="6-8">6-8 liters</option>
-              <option value="8-10">8-10 liters</option>
-            </Select>
-          </FormControl>
-
-          <FormControl id="exercise" isRequired>
-            <FormLabel>Exercise</FormLabel>
-            <CheckboxGroup name="exercise" value={formData.exercise} onChange={(values) => dispatch(updateForm({ exercise: values }))}>
-              <Stack>
-                <Checkbox value="cycling">Cycling</Checkbox>
-                <Checkbox value="swimming">Swimming</Checkbox>
-                <Checkbox value="running">Running</Checkbox>
-                <Checkbox value="weightlifting">Weightlifting</Checkbox>
-                <Checkbox value="yoga">Yoga</Checkbox>
-              </Stack>
-            </CheckboxGroup>
-          </FormControl>
-
-          <FormControl id="yoga" isRequired>
-            <FormLabel>Yoga</FormLabel>
-            <CheckboxGroup name="yoga" value={formData.yoga} onChange={(values) => dispatch(updateForm({ yoga: values }))}>
-              <Stack>
-                <Checkbox value="hatha">Hatha</Checkbox>
-                <Checkbox value="vinyasa">Vinyasa</Checkbox>
-                <Checkbox value="kundalini">Kundalini</Checkbox>
-              </Stack>
-            </CheckboxGroup>
-          </FormControl>
-
-          <Button type="submit" colorScheme="teal">
-            Submit
-          </Button>
-        </Stack>
-      </form>
+      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={8} >
+        {daysOfWeek.map((day) => (
+          <Box key={day} p={5} shadow="md" borderWidth="1px" borderRadius="md">
+            <Heading fontSize="xl"fontCo mb={4} color='tomato'>{day}</Heading>
+            <VStack align="start">
+              <HStack>
+                <Icon as={FaRunning} />
+                {editMode[day] ? (
+                  <RadioGroup
+                    name="workout"
+                    value={weeklyData[day]?.workout || ''}
+                    onChange={(value) => handleRadioChange(value, 'workout', day)}
+                  >
+                    <Stack direction="row" spacing={5}>
+                      <Radio value="yes">Yes</Radio>
+                      <Radio value="no">No</Radio>
+                    </Stack>
+                  </RadioGroup>
+                ) : (
+                  <Text>{weeklyData[day]?.workout || ''}</Text>
+                )}
+              </HStack>
+              {weeklyData[day]?.workout === 'yes' && (
+                <>
+                  <HStack>
+                    <Icon as={FaBurn} />
+                    {editMode[day] ? (
+                      <Input
+                        type="number"
+                        name="caloriesBurned"
+                        value={weeklyData[day]?.caloriesBurned || ''}
+                        onChange={(e) => handleChange(e, day)}
+                        bg="white"
+                        borderColor={formBorderColor}
+                        _placeholder={{ color: 'gray.500' }}
+                      />
+                    ) : (
+                      <Text>Calories Burned: {weeklyData[day]?.caloriesBurned || 'N/A'}</Text>
+                    )}
+                  </HStack>
+                  <HStack>
+                    <Icon as={FaWalking} />
+                    {editMode[day] ? (
+                      <Select
+                        name="stepsTaken"
+                        value={weeklyData[day]?.stepsTaken || ''}
+                        onChange={(e) => handleChange(e, day)}
+                        bg="white"
+                        borderColor={formBorderColor}
+                        _placeholder={{ color: 'gray.500' }}
+                      >
+                        <option value="">Select</option>
+                        <option value="1-5">1-5 steps</option>
+                        <option value="5-10">5-10 steps</option>
+                        <option value="10-15">10-15 steps</option>
+                        <option value="15-20">15-20 steps</option>
+                        <option value="20+">20 steps+</option>
+                      </Select>
+                    ) : (
+                      <Text>Steps Taken: {weeklyData[day]?.stepsTaken || 'N/A'}</Text>
+                    )}
+                  </HStack>
+                  <HStack>
+                    <Icon as={FaClock} />
+                    {editMode[day] ? (
+                      <Select
+                        name="workoutDuration"
+                        value={weeklyData[day]?.workoutDuration || ''}
+                        onChange={(e) => handleChange(e, day)}
+                        bg="white"
+                        borderColor={formBorderColor}
+                        _placeholder={{ color: 'gray.500' }}
+                      >
+                        <option value="">Select</option>
+                        <option value="0-30">0-30 mins</option>
+                        <option value="30-60">30-60 mins</option>
+                        <option value="60-90">60-90 mins</option>
+                        <option value="90+">90+ mins</option>
+                      </Select>
+                    ) : (
+                      <Text>Duration: {weeklyData[day]?.workoutDuration || ''}</Text>
+                    )}
+                  </HStack>
+                </>
+              )}
+               
+              <HStack >
+                <Icon as={FaCalendarAlt} />
+                <Text fontSize="10px">{weeklyData[day]?.lastUpdated || ''}</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaTime} />
+                <Text fontSize="10px">{weeklyData[day]?.lastUpdatedTime || ''}</Text>
+              </HStack>
+              <HStack>
+                <Button
+                  size="10px"
+                  leftIcon={editMode[day] ? <FaSave /> : <FaEdit />}
+                  onClick={() => editMode[day] ? handleSave(day) : setEditMode({ ...editMode, [day]: true })}
+                >
+                  {editMode[day] ? 'Save' : 'Edit'}
+                </Button>
+              </HStack>
+            </VStack>
+            
+          </Box>
+        ))}
+      </SimpleGrid>
     </Box>
   );
 };
