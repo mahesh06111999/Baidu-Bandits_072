@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { Auth } from './Auth';
-import { auth } from '../auth/firebase';
+import React, { useEffect, useState } from 'react';
+import { auth, db } from '../auth/firebase';
 import {
   Radio,
   RadioGroup,
@@ -11,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import RightSideBox from '../Components/RightSideBox';
 import Navbar from '../Components/Navbar';
+import { doc, getDoc } from 'firebase/firestore';
 
 const DoctorAppointment = () => {
   // user data fatch.................

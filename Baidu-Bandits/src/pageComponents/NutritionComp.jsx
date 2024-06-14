@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { auth, db } from '../auth/firebase';
-import Navbar from '../Components/Navbar';
-import RightSideBox from '../Components/RightSideBox';
-import { Navigate } from 'react-router';
 import { doc, getDoc } from 'firebase/firestore';
+import { Navigate } from 'react-router';
+import CustomSkeleton from '../Components/Skeleton';
 
-const PersonalTraining = () => {
+const NutritioniComp = () => {
   // user data fatch.................
   const [data, setdata] = useState();
   const [loading, setLoading] = useState(true);
@@ -30,27 +29,25 @@ const PersonalTraining = () => {
 fetch()   
   }, []);
   return( 
-    
     <>
-  
-      <>
-      {
-        auth?.currentUser?.email===undefined && <Navigate replace to={"/"}/>
-      }
-      <div style={{ display: 'flex' }}>
-      <Navbar />
-      <div style={{width:'63%'}}>
-        Personaltraining
-  
-  
-      </div>
-      <RightSideBox />
-    </div>
-
-      </>
-         
+    {
+    loading ? (<div style={{width:'63%'}}>
+        <CustomSkeleton/>
+    </div> ):(
+    <>  
+    {
+      auth?.currentUser?.email===undefined && <Navigate replace to={"/"}/>
+    }
+    
+    
+    <div style={{width:'63%'}}>nutrition components</div> 
+    
     </>
+    )}
+    </>
+    
+ 
 )
 };
 
-export default PersonalTraining;
+export default NutritioniComp;

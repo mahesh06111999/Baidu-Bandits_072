@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { auth } from '../auth/firebase';
+import { auth, db } from '../auth/firebase';
 import { Navigate } from 'react-router';
 import Navbar from '../Components/Navbar';
 import RightSideBox from '../Components/RightSideBox';
+import { doc, getDoc } from 'firebase/firestore';
 
 console.log(auth?.currentUser?.uid);
 
