@@ -41,7 +41,6 @@ const RightSideBox = () => {
     setAppointments(storedAppointments);
     setCheckedItems(storedCheckedItems);
 
-    // Check if it's time to reset the daily tasks
     if (
       !lastResetTime ||
       (currentTime >= today6AM && currentTime - today6AM < 24 * 60 * 60 * 1000)
@@ -54,7 +53,6 @@ const RightSideBox = () => {
       );
     }
 
-    // Remove expired appointments
     removeExpiredAppointments(storedAppointments);
   }, []);
 
@@ -187,7 +185,7 @@ const RightSideBox = () => {
             key={index}
             style={{
               background: 'white',
-              width: '88%',
+              width: '90%',
               display: 'flex',
               alignItems: 'center',
               margin: '10px',
@@ -229,7 +227,7 @@ const RightSideBox = () => {
               background: 'white',
               padding: '15px',
               borderRadius: '10px',
-              margin: '10px 0',
+              marginTop: '10px',
               margin: '6%',
               boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
             }}
