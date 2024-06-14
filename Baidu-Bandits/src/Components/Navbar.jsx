@@ -10,7 +10,7 @@ import logout from '../assets/logout-svgrepo-com.svg';
 import { auth } from '../auth/firebase';
 import { signOut } from 'firebase/auth';
 import { Alert, AlertIcon } from '@chakra-ui/react';
-
+import home from '../assets/home-1-svgrepo-com.svg';
 const Navbar = () => {
   const location = useLocation();
   const signOff = async()=>{
@@ -67,6 +67,12 @@ const Navbar = () => {
         <h1>Logo</h1>
         <Link to="/" style={{ textDecoration: 'none' }}>
           <div style={getLinkStyle('/')}>
+            <img src={home} alt="" width="35px" />
+            Home
+          </div>
+        </Link>
+        <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+          <div style={getLinkStyle('/dashboard')}>
             <img src={dashboard} alt="" width="35px" />
             Dashboard
           </div>

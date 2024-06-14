@@ -24,6 +24,10 @@ import ExerciseRecommendation from './ExerciseRecommendation';
 
 import { motion } from 'framer-motion';
 import DynamicForm from '../Components/DynamicForm';
+import RightSideBox from '../Components/RightSideBox';
+import Navbar from '../Components/Navbar';
+import { Navigate } from 'react-router';
+import { auth } from '../auth/firebase';
 
 
 // import './animations.css';  // Import the CSS animations
@@ -51,6 +55,30 @@ const activities = [
 
 const ActivityTracker = () => {
   const [showActivities, setShowActivities] = useState(false);
+
+// user data fatch.................
+  const [data, setdata] = useState();
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    async function fetch(){      
+    const userId=auth?.currentUser?.uid
+  try {
+    if(auth?.currentUser?.uid){
+    const raw=  await getDoc(doc(db, "user",userId ))
+    const solved =raw.data()
+    console.log(solved);
+    setdata(solved)}
+    
+  } catch (error) {
+    console.log(error);
+  }finally{
+    setLoading(false);
+    
+  }
+}  
+fetch()   
+  }, []);
 
 
 
@@ -106,7 +134,14 @@ const ActivityTracker = () => {
   };
   /////////
   return (
-    <Box p={5} height="100vh" overflow="auto">
+    <>
+    {
+      auth?.currentUser?.email===undefined && <Navigate replace to={"/"}/>
+    }
+
+    <div style={{ display: 'flex' }}>
+      <Navbar />
+      <Box width='63%' p={5} height="100vh" overflow="auto">
       {!showActivities ? (
         <>
         <Fade in={!showActivities}>
@@ -198,6 +233,9 @@ const ActivityTracker = () => {
       )}
     </Box>     
     </Box>
+      <RightSideBox />
+    </div>
+    </>
   );
 };
 
