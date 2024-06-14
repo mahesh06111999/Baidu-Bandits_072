@@ -9,3 +9,6 @@ Currently, two official plugins are available:
 
 # Dependencies
 ** 12/06/2024 -- imported chakra ui (npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion) ** 
+
+npm install react-slick slick-carousel
+

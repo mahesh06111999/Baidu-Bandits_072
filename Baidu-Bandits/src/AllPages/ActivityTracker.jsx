@@ -17,7 +17,8 @@ import DynamicForm from '../Components/DynamicForm';
 import RightSideBox from '../Components/RightSideBox';
 import Navbar from '../Components/Navbar';
 import { Navigate } from 'react-router';
-import { auth } from '../auth/firebase';
+import { auth, db } from '../auth/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 
 
