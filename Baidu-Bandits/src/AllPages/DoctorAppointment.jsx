@@ -121,13 +121,13 @@ const DoctorAppointment = () => {
     ? times.filter((time) => !(bookedSlots[formData.date] || []).includes(time))
     : times;
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (!auth?.currentUser?.email) {
-    return <Navigate replace to="/" />;
-  }
+  // if (!auth?.currentUser?.email) {
+  //   return <Navigate replace to="/" />;
+  // }
 
   return (
     <div style={{ display: 'flex' }}>
