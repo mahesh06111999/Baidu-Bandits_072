@@ -1,11 +1,25 @@
 import React, { useState } from 'react';
-import { Box, Button, Center, Flex, Input, Text, Heading, VStack, useColorModeValue, useToast, FormControl, FormLabel, FormErrorMessage} from "@chakra-ui/react";
-import { auth, db } from "../auth/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from 'firebase/firestore';
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Input,
+  Text,
+  Heading,
+  VStack,
+  useColorModeValue,
+  useToast,
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  FormErrorMessage,
+} from "@chakra-ui/react";
+import { auth } from "../auth/firebase";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { Navigate } from 'react-router';
 
-export const SignUp = ({ formData }) => {
+export const SignIn = ({ setres }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -39,19 +53,19 @@ export const SignUp = ({ formData }) => {
     }
   };
 
-  const signUp = async () => {
+  const signIn = async () => {
     if (!validateEmail(email) || !validatePassword(password)) {
       toast({
         title: "Error",
         description: "Please correct the highlighted errors",
         status: "error",
         duration: 5000,
-        isClosable: true
+        isClosable: true,
       });
       return;
     }
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       toast({
         title: "Signed In",
         description: "You have successfully signed in",
@@ -63,7 +77,7 @@ export const SignUp = ({ formData }) => {
       console.error(error);
       toast({
         title: "Error",
-        description: error,
+        description: "Failed to sign in",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -71,26 +85,27 @@ export const SignUp = ({ formData }) => {
     } finally {
       setEmail('');
       setPassword('');
-      setData();      
+      
     }
   };
 
-  const setData = async()=>{
-    const userId=auth?.currentUser?.uid
-      setDoc(doc(db, "user",userId ),formData);
-  }
-
-
+  const signOff = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const toggleSignUp = () => {
-    setres((prevRes) => !prevRes); 
+    setres((prevRes) => !prevRes); // Toggle the state of setres
   };
 
   const formBg = useColorModeValue("white", "gray.700");
   const gradientBg = "linear(to-r, teal.500, green.500)";
 
   return (
-    <>
+  <>
     {
       auth?.currentUser?.email && <Navigate replace to={"/dashboard"}/>
     }
@@ -117,7 +132,7 @@ export const SignUp = ({ formData }) => {
           `}
         </style>
         <Center mb={6}>
-          <Heading size='lg' color='teal.600'>Sign Up</Heading>
+          <Heading size='lg' color='teal.600'>Sign In</Heading>
         </Center>
         <VStack spacing={4}>
           <FormControl isInvalid={emailError !== ''}>
@@ -151,7 +166,7 @@ export const SignUp = ({ formData }) => {
           </FormControl>
 
           <Button
-            onClick={signUp}
+            onClick={signIn}
             colorScheme='green'
             width='100%'
             mt={4}
@@ -159,7 +174,7 @@ export const SignUp = ({ formData }) => {
               bgGradient: "linear(to-r, green.400, green.500)",
             }}
           >
-            Sign Up
+            Sign In
           </Button>
 
           <Flex mt={2} color='teal.600' cursor='pointer' >
@@ -167,7 +182,7 @@ export const SignUp = ({ formData }) => {
               Don't have an account? 
             </Text>
             <Text ml={1} color='blue.600' cursor='pointer' as='b' onClick={toggleSignUp}>
-              Sign In
+              Sign up
             </Text>
           </Flex>
         </VStack>

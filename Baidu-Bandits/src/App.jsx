@@ -4,11 +4,8 @@ import Navbar from './Components/Navbar';
 import RightSideBox from './Components/RightSideBox';
 function App() {
   return (
-    <div style={{ display: 'flex' }}>
-      <Navbar />
+      
       <AllRoutes />
-      <RightSideBox />
-    </div>
   );
 }
 
