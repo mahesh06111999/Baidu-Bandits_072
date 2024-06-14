@@ -44,42 +44,6 @@ const DynamicForm = () => {
       <Heading mb={4} >Enter details</Heading>
       <form onSubmit={handleSubmit}>
         <Stack spacing={4}>
-          <FormControl id="name" isRequired>
-            <FormLabel>Name</FormLabel>
-            <Input type="text" name="name" value={formData.name} onChange={handleChange} />
-          </FormControl>
-
-          <FormControl id="age" isRequired>
-            <FormLabel>Age</FormLabel>
-            <Select name="age" value={formData.age} onChange={handleChange}>
-              {Array.from({ length: 53 }, (_, i) => i + 18).map((age) => (
-                <option key={age} value={age}>
-                  {age}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-
-          <FormControl id="gender" isRequired>
-            <FormLabel>Gender</FormLabel>
-            <Select name="gender" value={formData.gender} onChange={handleChange}>
-              <option value="">Select</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="transgender">Transgender</option>
-            </Select>
-          </FormControl>
-
-          <FormControl id="country" isRequired>
-            <FormLabel>Country</FormLabel>
-            <Select name="country" value={formData.country} onChange={handleChange}>
-              {['Australia', 'Belgium', 'Canada', 'Denmark', 'France', 'Germany', 'India', 'Japan', 'Netherlands', 'Switzerland'].map((country) => (
-                <option key={country} value={country}>
-                  {country}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
 
           <FormControl id="weight" isRequired>
             <FormLabel>Weight</FormLabel>
@@ -91,20 +55,7 @@ const DynamicForm = () => {
             <Textarea name="healthIssues" value={formData.healthIssues} onChange={handleChange} />
           </FormControl>
 
-          <FormControl id="profession" isRequired>
-            <FormLabel>Profession</FormLabel>
-            <Select name="profession" value={formData.profession} onChange={handleChange}>
-              <option value="">Select</option>
-              <option value="it">IT</option>
-              <option value="teacher">Teacher</option>
-              <option value="businessman">Businessman</option>
-              <option value="doctor">Doctor</option>
-              <option value="engineer">Engineer</option>
-              <option value="lawyer">Lawyer</option>
-              <option value="artist">Artist</option>
-              <option value="student">Student</option>
-            </Select>
-          </FormControl>
+         
 
           <FormControl id="waterIntake" isRequired>
             <FormLabel>Water Intake</FormLabel>

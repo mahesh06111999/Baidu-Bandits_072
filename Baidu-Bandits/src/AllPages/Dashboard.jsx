@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ChakraProvider, Box, Heading, Text, Image, Button, Grid, GridItem,CircularProgress,CircularProgressLabel } from '@chakra-ui/react';
 import myImage from '../assets/myImage.png';
@@ -5,13 +6,55 @@ import image2 from '../assets/image2.png';
 import image3 from '../assets/image3.png';
 import bargraph from '../assets/bargraph.png';
 import report from '../assets/report.png'
+import React, { useEffect, useState } from 'react';
+
+import {auth, db} from "../auth/firebase"
+import { ChakraProvider, Box, Heading, Text, Image, Button, Grid, GridItem } from '@chakra-ui/react';
+import Navbar from '../Components/Navbar';
+import RightSideBox from '../Components/RightSideBox';
+import { Navigate } from 'react-router';
+import { doc, getDoc } from 'firebase/firestore';
 
 const Dashboard = () => {
+ // user data fatch.................
+ const [data, setdata] = useState();
+ const [loading, setLoading] = useState(true);
+ 
+ useEffect(() => {
+   async function fetch(){      
+   const userId=auth?.currentUser?.uid
+ try {
+   if(auth?.currentUser?.uid){
+   const raw=  await getDoc(doc(db, "user",userId ))
+   const solved =raw.data()
+   console.log(solved);
+   setdata(solved)}
+   
+ } catch (error) {
+   console.log(error);
+ }finally{
+   setLoading(false);
+   
+ }
+}  
+fetch()   
+ }, []);
+
+
   return (
-  <>
+    <>
+    {
+      auth?.currentUser?.email===undefined && <Navigate replace to={"/"}/>
+    }
+
+    <div style={{ display: 'flex' }}>
+      <Navbar />
+      
+     
+  
     <ChakraProvider>
       {/* main box */}
-    <Box maxHeight="100vh" overflow="hidden">
+    <Box width='63%' maxHeight="100vh" overflow="hidden">
       {/* first box */}
       <Box bg='#12A5BC' w='100%' p={4} color='white'  borderRadius={"lg"} marginLeft={4} marginRight={4} marginTop={6} maxWidth={"96%"} boxShadow="lg">
         <Grid templateColumns="2fr 1fr" gap={4} >
@@ -139,6 +182,8 @@ const Dashboard = () => {
       </Box>
     </ChakraProvider>
   
+  <RightSideBox />
+    </div>
   </>
   );
 };

@@ -7,9 +7,32 @@ import mental from '../assets/mental-health-svgrepo-com.svg';
 import nutri from '../assets/i-nutrition-svgrepo-com.svg';
 import gym from '../assets/gym-svgrepo-com.svg';
 import logout from '../assets/logout-svgrepo-com.svg';
-
+import { auth } from '../auth/firebase';
+import { signOut } from 'firebase/auth';
+import { Alert, AlertIcon } from '@chakra-ui/react';
+import home from '../assets/home-1-svgrepo-com.svg';
 const Navbar = () => {
   const location = useLocation();
+  const signOff = async()=>{
+    try {
+        
+        await signOut(auth)
+        
+    }
+     catch (error) {
+        console.error(error);
+    }
+    finally{
+      
+      setTimeout(() => {
+        window.location.reload();
+        
+      }, 1000);
+      
+    }
+  }
+  
+
   const getLinkStyle = (path) => ({
     display: 'flex',
     alignItems: 'center',
@@ -44,6 +67,12 @@ const Navbar = () => {
         <h1>Logo</h1>
         <Link to="/" style={{ textDecoration: 'none' }}>
           <div style={getLinkStyle('/')}>
+            <img src={home} alt="" width="35px" />
+            Home
+          </div>
+        </Link>
+        <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+          <div style={getLinkStyle('/dashboard')}>
             <img src={dashboard} alt="" width="35px" />
             Dashboard
           </div>
@@ -96,6 +125,7 @@ const Navbar = () => {
               padding: '5px',
               borderRadius: '10px',
             }}
+            onClick={signOff}
           >
             <img src={logout} alt="" width="30px" />
             Logout

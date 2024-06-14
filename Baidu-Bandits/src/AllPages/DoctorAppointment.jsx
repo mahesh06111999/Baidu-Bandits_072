@@ -1,6 +1,97 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Auth } from './Auth';
+import { auth } from '../auth/firebase';
+import {
+  Radio,
+  RadioGroup,
+  Stack,
+  Text,
+  Checkbox,
+  useToast,
+} from '@chakra-ui/react';
+import RightSideBox from '../Components/RightSideBox';
+import Navbar from '../Components/Navbar';
 
 const DoctorAppointment = () => {
+  // user data fatch.................
+  const [data, setdata] = useState();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetch() {
+      const userId = auth?.currentUser?.uid;
+      try {
+        if (auth?.currentUser?.uid) {
+          const raw = await getDoc(doc(db, 'user', userId));
+          const solved = raw.data();
+          console.log(solved);
+          setdata(solved);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetch();
+  }, []);
+
+  const [formData, setFormData] = useState({
+    title: '',
+    fullName: '',
+    email: '',
+    mobile: '',
+    date: '',
+    time: '',
+    problem: '',
+    terms: true,
+  });
+
+  const [bookedSlots, setBookedSlots] = useState({});
+  const toast = useToast();
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value,
+    });
+  };
+
+  const handleDateChange = (e) => {
+    setFormData({ ...formData, date: e.target.value, time: '' });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { date, time } = formData;
+
+    setBookedSlots((prevSlots) => ({
+      ...prevSlots,
+      [date]: [...(prevSlots[date] || []), time],
+    }));
+
+    console.log(formData);
+    toast({
+      title: 'Appointment booked.',
+      description: "We've received your appointment request.",
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    });
+
+    setFormData({
+      title: '',
+      fullName: '',
+      email: '',
+      mobile: '',
+      date: '',
+      time: '',
+      problem: '',
+      terms: true,
+    });
+  };
+
   const times = [
     '9:00',
     '9:30',
@@ -18,151 +109,181 @@ const DoctorAppointment = () => {
     '4:30',
   ];
 
-  const initialFormState = {
-    name: '',
-    age: '',
-    gender: '',
-    date: '',
-    time: '',
-  };
-
-  const [formData, setFormData] = useState(initialFormState);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    setFormData(initialFormState);
-  };
-
-  const inputbox = {
-    padding: '5px',
-    border: '1px solid black',
-    borderRadius: '10px',
-    width: '350px',
-  };
-
-  const divstyle = {
-    fontSize: '25px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '10px',
-  };
-
-  const btnstyle = {
-    background: '#11a5bc',
-    width: '100%',
-    padding: '10px',
-    borderRadius: '10px',
-    color: 'white',
-    fontSize: '20px',
-    fontWeight: 'bold',
-    boxSizing: 'border-box',
-  };
+  const availableTimes = formData.date
+    ? times.filter((time) => !(bookedSlots[formData.date] || []).includes(time))
+    : times;
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        marginTop: '100px',
-        flexDirection: 'column',
-        fontFamily: 'sans-serif',
-        width: '550px',
-        marginLeft: '23%',
-        borderRadius: '10px',
-        padding: '10px',
-        boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
-      }}
-    >
-      <p style={{ fontSize: '30px' }}>Book Appointment</p>
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          width: '500px',
-          padding: '10px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px',
-        }}
-      >
-        <div style={divstyle}>
-          <label>Name : </label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            style={inputbox}
-          />
-        </div>
+    <>
+      {auth?.currentUser?.email === undefined && <Navigate replace to={'/'} />}
+      <div style={{ display: 'flex' }}>
+        <Navbar />
 
-        <div style={divstyle}>
-          <label>Age : </label>
-          <input
-            type="number"
-            name="age"
-            value={formData.age}
-            onChange={handleChange}
-            max={100}
-            min={10}
-            style={inputbox}
-          />
-        </div>
-
-        <div style={divstyle}>
-          <label>Gender : </label>
-          <select
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            style={inputbox}
+        <div
+          style={{
+            width: '63%',
+            fontFamily: 'sans-serif',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <form
+            onSubmit={handleSubmit}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              fontSize: '20px',
+              width: '90%',
+              marginTop: '10%',
+              gap: '50px',
+              padding: '20px',
+            }}
           >
-            <option value="">Gender</option>
-            <option value="men">Men</option>
-            <option value="women">Women</option>
-          </select>
+            <Text fontSize="4xl" color="#11a5bc">
+              Make An Appointment
+            </Text>
+            <div style={{ display: 'flex', gap: '30px', alignItems: 'center' }}>
+              <RadioGroup
+                name="title"
+                value={formData.title}
+                onChange={(value) => setFormData({ ...formData, title: value })}
+              >
+                <Stack spacing={5} direction="row">
+                  <Radio colorScheme="teal" value="Mr" size="lg">
+                    Mr
+                  </Radio>
+                  <Radio colorScheme="teal" value="Mrs" size="lg">
+                    Mrs
+                  </Radio>
+                </Stack>
+              </RadioGroup>
+              <input
+                type="text"
+                name="fullName"
+                placeholder="Full Name *"
+                value={formData.fullName}
+                onChange={handleChange}
+                style={{
+                  borderBottom: '1px solid grey',
+                  width: '500px',
+                  fontSize: '20px',
+                  padding: '3px',
+                }}
+                required
+              />
+            </div>
+            <div style={{ display: 'flex', gap: '55px' }}>
+              <input
+                type="text"
+                name="email"
+                placeholder="Email Address *"
+                value={formData.email}
+                onChange={handleChange}
+                style={{
+                  borderBottom: '1px solid grey',
+                  width: '300px',
+                  fontSize: '20px',
+                }}
+                required
+              />
+              <input
+                type="text"
+                name="mobile"
+                placeholder="Mobile Number *"
+                value={formData.mobile}
+                onChange={handleChange}
+                style={{
+                  borderBottom: '1px solid grey',
+                  width: '300px',
+                  fontSize: '20px',
+                }}
+                required
+              />
+            </div>
+            <div style={{ display: 'flex', gap: '55px' }}>
+              <input
+                type="date"
+                name="date"
+                value={formData.date}
+                onChange={handleDateChange}
+                style={{
+                  borderBottom: '1px solid grey',
+                  width: '300px',
+                  fontSize: '20px',
+                }}
+                min={new Date().toISOString().split('T')[0]}
+                required
+              />
+              <select
+                name="time"
+                value={formData.time}
+                onChange={handleChange}
+                style={{
+                  borderBottom: '1px solid grey',
+                  width: '300px',
+                  fontSize: '20px',
+                }}
+                required
+              >
+                <option value="">hh:mm</option>
+                {availableTimes.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <input
+                type="text"
+                name="problem"
+                placeholder="Your Problem Summary..."
+                value={formData.problem}
+                onChange={handleChange}
+                style={{
+                  borderBottom: '1px solid grey',
+                  width: '650px',
+                  fontSize: '20px',
+                }}
+                required
+              />
+            </div>
+            <div style={{ marginLeft: '-27%' }}>
+              <Checkbox
+                name="terms"
+                isChecked={formData.terms}
+                onChange={handleChange}
+                size="md"
+                colorScheme="teal"
+              >
+                <span style={{ color: 'grey' }}>I agree to your </span>
+                <span style={{ textDecoration: 'underline', color: 'grey' }}>
+                  Terms of Service{' '}
+                </span>
+                <span style={{ color: 'grey' }}>and </span>
+                <span style={{ textDecoration: 'underline', color: 'grey' }}>
+                  Privacy Policy.
+                </span>
+              </Checkbox>
+            </div>
+            <button
+              type="submit"
+              style={{
+                background: '#11a5bc',
+                width: '70%',
+                color: 'white',
+                padding: '10px',
+                fontSize: '20px',
+              }}
+            >
+              Book
+            </button>
+          </form>
         </div>
-
-        <div style={divstyle}>
-          <label>Date : </label>
-          <input
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            style={inputbox}
-            min={new Date().toISOString().split('T')[0]}
-          />
-        </div>
-
-        <div style={divstyle}>
-          <label>Time : </label>
-          <select
-            name="time"
-            value={formData.time}
-            onChange={handleChange}
-            style={inputbox}
-          >
-            <option value=""></option>
-            {times.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <button style={btnstyle} type="submit">
-          Book
-        </button>
-      </form>
-    </div>
+        <RightSideBox />
+      </div>
+    </>
   );
 };
 

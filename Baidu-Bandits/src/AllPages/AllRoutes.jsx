@@ -6,12 +6,16 @@ import DoctorAppointment from './DoctorAppointment';
 import MentalWellness from './MentalWellness';
 import Nutrition from './Nutrition';
 import PersonalTraining from './PersonalTraining';
+import Home from './Home';
+import { Auth } from './Auth';
 
 const AllRoutes = () => {
   return (
-    <div style={{ width: '63%' }}>
+    <div >
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/activitytracker" element={<ActivityTracker />} />
         <Route path="/doctorappointment" element={<DoctorAppointment />} />
         <Route path="/mentalwellness" element={<MentalWellness />} />
