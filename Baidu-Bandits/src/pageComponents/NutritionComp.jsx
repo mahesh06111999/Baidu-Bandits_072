@@ -25,9 +25,12 @@ const NutritioniComp = () => {
     setLoading(false);
     
   }
-}  
-fetch()   
+  }  
+  fetch()   
   }, []);
+
+
+
   return( 
     <>
     {
@@ -35,9 +38,9 @@ fetch()
         <CustomSkeleton/>
     </div> ):(
     <>  
-    {
+    {/* {
       auth?.currentUser?.email===undefined && <Navigate replace to={"/"}/>
-    }
+    } */}
     
     
     <div style={{width:'63%'}}>nutrition components</div> 

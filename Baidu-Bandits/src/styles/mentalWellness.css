@@ -1,0 +1,152 @@
+
+.fade-message {
+    animation: fadeOut 4s forwards;
+  }
+  
+  @keyframes fadeOut {
+    0%   {opacity: 1;}
+    
+    70%  {opacity: 1;}
+    100%  {opacity: 0;}
+  }
+  
+  .main-content {
+    animation: fadeIn 1s forwards;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .mood{
+    padding: 25px;
+    background-color: #13a5bc;
+    height: 300px;
+    box-sizing: border-box;
+    border-radius: 40px;
+  }
+
+  /* fade message......................... */
+  .fade-message{
+    height: 100%;
+    padding: 10px;
+    color: white;
+   
+  }
+  .fade-message>h1{
+    font-size: 42px;
+    font-weight: 700;
+  }
+  .fade-message>p{
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .main-content {
+    height: 100%;
+    padding: 10px;
+    color: white;
+    
+  }
+  .main-content h1{
+    font-size: 36px;
+    margin-top: 0px;
+
+    font-weight: 700;
+  }
+  .main-content p{
+    font-size: 20px;
+    font-weight: 300;
+  }
+
+  
+  /* mental container ...................... */
+
+.mental-container{
+    padding: 30px;
+}
+
+.modalCont{
+    display: flex;
+    justify-content: space-around;
+}
+.modalCard{
+    padding: 20px;
+    border-radius: 10px;
+    width: 45%;
+    border: 1px solid rgb(202, 202, 202);
+}
+.modalCard h1,h2{
+font-size: 18px;
+font-weight: 500;
+}
+.modalImg{
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-cont{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+.btn-cont button{
+    border: 1px solid white;
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+.messages-container {
+    position: relative;
+    width: 100%;
+    font-size: 18px;
+    letter-spacing: 3px;
+    font-style: italic;
+    font-weight: 300;
+    height: 40px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #f5f7f8;
+    color: #474747;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    
+  }
+  
+  .message {
+  
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  
+  .message.visible {
+    opacity: 1;
+    animation: fadeInOut 12s ease-in-out;
+  }
+  
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
