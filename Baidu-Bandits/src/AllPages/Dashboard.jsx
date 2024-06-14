@@ -6,10 +6,9 @@ import image2 from '../assets/image2.png';
 import image3 from '../assets/image3.png';
 import bargraph from '../assets/bargraph.png';
 import report from '../assets/report.png'
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import {auth, db} from "../auth/firebase"
-import { ChakraProvider, Box, Heading, Text, Image, Button, Grid, GridItem } from '@chakra-ui/react';
+import {auth, db} from "../auth/firebase";
 import Navbar from '../Components/Navbar';
 import RightSideBox from '../Components/RightSideBox';
 import { Navigate } from 'react-router';
