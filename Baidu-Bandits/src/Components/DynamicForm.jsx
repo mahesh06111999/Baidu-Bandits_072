@@ -1,6 +1,5 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
-  
   Input,
   Select,
   RadioGroup,
@@ -58,54 +57,53 @@ const DynamicForm = () => {
 
   const handleSave = (day) => {
     const currentDate = new Date();
-    setWeeklyData({
+    const updatedData = {
       ...weeklyData,
       [day]: {
         ...weeklyData[day],
         lastUpdated: currentDate.toLocaleDateString(),
         lastUpdatedTime: currentDate.toLocaleTimeString(),
       },
-    });
+    };
+    setWeeklyData(updatedData);
     setEditMode({
       ...editMode,
       [day]: false,
     });
-    localStorage.setItem('weeklyData', JSON.stringify(weeklyData));
+    localStorage.setItem('weeklyData', JSON.stringify(updatedData));
   };
 
   const formBgColor = useColorModeValue('gray.50', 'gray.700');
-  // const formTextColor = useColorModeValue('gray.800', 'white');
   const formBorderColor = useColorModeValue('gray.200', 'gray.600');
 
   return (
     <Box maxW="xll" mx="auto" mt={10} p={6} bg={formBgColor} borderRadius="md" boxShadow="lg">
       <Heading mb={6} textAlign="center" color="white" bgColor="#11a5bc" maxH="100px">Weekly Workout Tracker</Heading>
-      
+
       <Box mb={8} textAlign="center">
         <Flex>
-        <Image
-          src="https://img.freepik.com/free-vector/sport-fitness-tracker-abstract-concept-vector-illustration-activity-band-health-monitor-wrist-worn-device-application-running-cycling-every-day-training-abstract-metaphor_335657-1454.jpg?t=st=1718180351~exp=1718183951~hmac=48849305ff35333c08fb67262664b70e984691795e8c383900c5b37e1e2d9b9e&w=740"
-          alt="Activity Tracker"
-          maxW="960px" maxH="200px"
-        />
-         <Image
-          src="https://img.freepik.com/premium-vector/fitness-concept-fitness-training-running-shoes-outline-style-illustration-with-run-sport-icons-fitness-training-design-elements-vector-illustration_6280-924.jpg?w=1380"
-          alt="Activity Tracker"
-          maxW="960px" maxH="200px"
-        />
-        <Image
-          src="https://img.freepik.com/free-vector/appointment-booking-with-smartphone_23-2148554312.jpg?t=st=1718349663~exp=1718353263~hmac=800f63cd074ca2919d99489b7556d60a2ad9b7f8090fc06b6be8d0c0f1085de4&w=826"
-          alt="Activity Tracker"
-          maxW="960px" maxH="200px"
-        />
-       
+          <Image
+            src="https://img.freepik.com/free-vector/sport-fitness-tracker-abstract-concept-vector-illustration-activity-band-health-monitor-wrist-worn-device-application-running-cycling-every-day-training-abstract-metaphor_335657-1454.jpg?t=st=1718180351~exp=1718183951~hmac=48849305ff35333c08fb67262664b70e984691795e8c383900c5b37e1e2d9b9e&w=740"
+            alt="Activity Tracker"
+            maxW="960px" maxH="200px"
+          />
+          <Image
+            src="https://img.freepik.com/premium-vector/fitness-concept-fitness-training-running-shoes-outline-style-illustration-with-run-sport-icons-fitness-training-design-elements-vector-illustration_6280-924.jpg?w=1380"
+            alt="Activity Tracker"
+            maxW="960px" maxH="200px"
+          />
+          <Image
+            src="https://img.freepik.com/free-vector/appointment-booking-with-smartphone_23-2148554312.jpg?t=st=1718349663~exp=1718353263~hmac=800f63cd074ca2919d99489b7556d60a2ad9b7f8090fc06b6be8d0c0f1085de4&w=826"
+            alt="Activity Tracker"
+            maxW="960px" maxH="200px"
+          />
         </Flex>
       </Box>
 
-      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={8} >
+      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={8}>
         {daysOfWeek.map((day) => (
-          <Box key={day} p={5} shadow="md" borderWidth="1px" borderRadius="md">
-            <Heading fontSize="xl"fontCo mb={4} color='tomato'>{day}</Heading>
+          <Box key={day} p={5} shadow="md" borderWidth="1px" borderRadius="md" position="relative">
+            <Heading fontSize="xl" mb={4} color='tomato'>{day}</Heading>
             <VStack align="start">
               <HStack>
                 <Icon as={FaRunning} />
@@ -154,11 +152,11 @@ const DynamicForm = () => {
                         _placeholder={{ color: 'gray.500' }}
                       >
                         <option value="">Select</option>
-                        <option value="1-5">1-5 steps</option>
-                        <option value="5-10">5-10 steps</option>
-                        <option value="10-15">10-15 steps</option>
-                        <option value="15-20">15-20 steps</option>
-                        <option value="20+">20 steps+</option>
+                        <option value="50 steps-100 steps">50 steps-100 steps</option>
+                        <option value="100 steps -200 steps">100 steps -200 steps</option>
+                        <option value="10 k -20 k">10 k -20 k</option>
+                        <option value="20 k - 35 k">20 k - 35 k</option>
+                        <option value="35 k ">35 k </option>
                       </Select>
                     ) : (
                       <Text>Steps Taken: {weeklyData[day]?.stepsTaken || 'N/A'}</Text>
@@ -187,18 +185,23 @@ const DynamicForm = () => {
                   </HStack>
                 </>
               )}
-               
-              <HStack >
-                <Icon as={FaCalendarAlt} />
-                <Text fontSize="10px">{weeklyData[day]?.lastUpdated || ''}</Text>
-              </HStack>
-              <HStack>
-                <Icon as={FaTime} />
-                <Text fontSize="10px">{weeklyData[day]?.lastUpdatedTime || ''}</Text>
-              </HStack>
+
+              {weeklyData[day]?.lastUpdated && weeklyData[day]?.lastUpdatedTime && (
+                <VStack align="start" position="absolute" bottom="10px" right="10px">
+                  <HStack>
+                    <Icon as={FaCalendarAlt} />
+                    <Text fontSize="10px">{weeklyData[day]?.lastUpdated}</Text>
+                  </HStack>
+                  <HStack>
+                    <Icon as={FaTime} />
+                    <Text fontSize="10px">{weeklyData[day]?.lastUpdatedTime}</Text>
+                  </HStack>
+                </VStack>
+              )}
+
               <HStack>
                 <Button
-                  size="10px"
+                  size="sm"
                   leftIcon={editMode[day] ? <FaSave /> : <FaEdit />}
                   onClick={() => editMode[day] ? handleSave(day) : setEditMode({ ...editMode, [day]: true })}
                 >
@@ -206,7 +209,6 @@ const DynamicForm = () => {
                 </Button>
               </HStack>
             </VStack>
-            
           </Box>
         ))}
       </SimpleGrid>
