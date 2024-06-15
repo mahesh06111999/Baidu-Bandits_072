@@ -7,7 +7,6 @@ import {
   Button,
   Stack,
   Box,
-  Heading,
   VStack,
   useColorModeValue,
   SimpleGrid,
@@ -76,11 +75,21 @@ const DynamicForm = () => {
   const formBgColor = useColorModeValue('gray.50', 'gray.700');
   const formBorderColor = useColorModeValue('gray.200', 'gray.600');
 
-  return (
-    <Box maxW="xll" mx="auto" mt={10} p={6} bg={formBgColor} borderRadius="md" boxShadow="lg">
-      <Heading mb={6} textAlign="center" color="white" bgColor="#11a5bc" maxH="100px">Weekly Workout Tracker</Heading>
+  // Define colors for each day
+  const dayColors = {
+    Monday: 'red.100',
+    Tuesday: 'orange.100',
+    Wednesday: 'yellow.100',
+    Thursday: 'green.100',
+    Friday: 'blue.100',
+    Saturday: 'purple.100',
+  };
 
-      <Box mb={8} textAlign="center">
+  return (
+    <Box maxW="xll" mx="auto" mt={1} p={6} bg={formBgColor} borderRadius="md" boxShadow="lg">
+      <h1 className='activity'>Weekly Workout Tracker</h1>
+
+      <Box mb={8} textAlign="center" justifyItems="center">
         <Flex>
           <Image
             src="https://img.freepik.com/free-vector/sport-fitness-tracker-abstract-concept-vector-illustration-activity-band-health-monitor-wrist-worn-device-application-running-cycling-every-day-training-abstract-metaphor_335657-1454.jpg?t=st=1718180351~exp=1718183951~hmac=48849305ff35333c08fb67262664b70e984691795e8c383900c5b37e1e2d9b9e&w=740"
@@ -102,15 +111,17 @@ const DynamicForm = () => {
 
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={8}>
         {daysOfWeek.map((day) => (
-          <Box key={day} p={5} shadow="md" borderWidth="1px" borderRadius="md" position="relative">
-            <Heading fontSize="xl" mb={4} color='tomato'>{day}</Heading>
+          <Box key={day} p={5} shadow="md" borderWidth="1px" borderRadius="md" position="relative" bg={dayColors[day]}>
+            <h1 className='board-card-week'>{day}</h1>
             <VStack align="start">
               <HStack>
-                <Icon as={FaRunning} />
+                
+                <Icon as={FaRunning} color="gray" />
+                <h1>do you workout?</h1>
                 {editMode[day] ? (
                   <RadioGroup
                     name="workout"
-                    value={weeklyData[day]?.workout || ''}
+                    value={weeklyData[day]?.workout || 'Do you workout'}
                     onChange={(value) => handleRadioChange(value, 'workout', day)}
                   >
                     <Stack direction="row" spacing={5}>
@@ -125,10 +136,11 @@ const DynamicForm = () => {
               {weeklyData[day]?.workout === 'yes' && (
                 <>
                   <HStack>
-                    <Icon as={FaBurn} />
+                    <Icon as={FaBurn}color="gray"  />
                     {editMode[day] ? (
                       <Input
                         type="number"
+                        placeholder='calories burnt'
                         name="caloriesBurned"
                         value={weeklyData[day]?.caloriesBurned || ''}
                         onChange={(e) => handleChange(e, day)}
@@ -137,12 +149,12 @@ const DynamicForm = () => {
                         _placeholder={{ color: 'gray.500' }}
                       />
                     ) : (
-                      <Text>Calories Burned: {weeklyData[day]?.caloriesBurned || 'N/A'}</Text>
+                      <Text placeholder="calories burnt">Calories Burned : {weeklyData[day]?.caloriesBurned || 'calories burnt'}</Text>
                     )}
                   </HStack>
                   <HStack>
-                    <Icon as={FaWalking} />
-                    {editMode[day] ? (
+                    <Icon as={FaWalking}color="gray"  />
+                    Steps Taken:{editMode[day] ? (
                       <Select
                         name="stepsTaken"
                         value={weeklyData[day]?.stepsTaken || ''}
@@ -151,19 +163,19 @@ const DynamicForm = () => {
                         borderColor={formBorderColor}
                         _placeholder={{ color: 'gray.500' }}
                       >
-                        <option value="">Select</option>
-                        <option value="50 steps-100 steps">50 steps-100 steps</option>
-                        <option value="100 steps -200 steps">100 steps -200 steps</option>
-                        <option value="10 k -20 k">10 k -20 k</option>
-                        <option value="20 k - 35 k">20 k - 35 k</option>
-                        <option value="35 k ">35 k </option>
+                        <option value="0 k - 5 k">No of steps taken</option>
+                        <option value="5 k-100 k">5 k-100 k</option>
+                        <option value="200 k -300 k">200 k -300 k</option>
+                        <option value="500 k -700 k">500 k -700 k</option>
+                        <option value="1000 k - 2000 k">1000 k - 2000 k</option>
+                        <option value=" 2000k+ ">2000k+ </option>
                       </Select>
                     ) : (
                       <Text>Steps Taken: {weeklyData[day]?.stepsTaken || 'N/A'}</Text>
                     )}
                   </HStack>
                   <HStack>
-                    <Icon as={FaClock} />
+                    <Icon as={FaClock} color="gray"  />
                     {editMode[day] ? (
                       <Select
                         name="workoutDuration"
@@ -173,7 +185,7 @@ const DynamicForm = () => {
                         borderColor={formBorderColor}
                         _placeholder={{ color: 'gray.500' }}
                       >
-                        <option value="">Select</option>
+                        <option value="">WorkOut duration</option>
                         <option value="0-30">0-30 mins</option>
                         <option value="30-60">30-60 mins</option>
                         <option value="60-90">60-90 mins</option>
@@ -189,11 +201,11 @@ const DynamicForm = () => {
               {weeklyData[day]?.lastUpdated && weeklyData[day]?.lastUpdatedTime && (
                 <VStack align="start" position="absolute" bottom="10px" right="10px">
                   <HStack>
-                    <Icon as={FaCalendarAlt} />
+                    <Icon as={FaCalendarAlt}color="rgb(149, 149, 223)"  />
                     <Text fontSize="10px">{weeklyData[day]?.lastUpdated}</Text>
                   </HStack>
                   <HStack>
-                    <Icon as={FaTime} />
+                    <Icon as={FaTime}color="rgb(149, 149, 223)"  />
                     <Text fontSize="10px">{weeklyData[day]?.lastUpdatedTime}</Text>
                   </HStack>
                 </VStack>

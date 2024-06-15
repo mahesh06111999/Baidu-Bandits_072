@@ -34,4 +34,67 @@
   }
   
 
+  .activity{
+   margin-bottom: 6px;
+    text-align:center; 
+    color:white;
+     background-color: #11a5bc;
+     height:100px;
+     font-size:70px;
+     font-family: "Roboto", sans-serif;
+     font-weight: 100;
+     font-style: normal;
+     border-radius:10px ;
+  }
   
+  .board-card-week{
+    
+    font-size:20px;
+     margin-bottom: 4px;
+     background-color: #11a5bc;
+     color: white;
+     width:130px;
+     height: 30px;
+     text-align: center;
+  }
+  .nutrition{
+    height: 100vh;
+    padding: 5px;
+    
+  }
+  .nutri{
+    margin-bottom: 6px;
+     text-align:center; 
+     color:white;
+      background-color: #11a5bc;
+      height:130px;
+    
+      font-family: "Roboto", sans-serif;
+      font-weight: 100;
+      font-style: normal;
+      border-radius:10px ;
+   }
+   .nutri h1{
+    font-size:50px;
+   }
+   .nutri p{
+    font-size:20px;
+    padding: 0px 0px  5px 0px;
+   }
+  .nutrii-bmi{
+    /* background-color: orange; */
+    height: 60vh;
+  }
+  .nutrii-footer{
+    /* background-color: blueviolet; */
+    /* height: 30vh;  text-align:center;  */
+    color:white;
+     background-color: #11a5bc;
+     height:130px;
+   
+     font-family: "Roboto", sans-serif;
+     font-weight: 100;
+     font-style: normal;
+     border-radius:10px ;
+  
+  }

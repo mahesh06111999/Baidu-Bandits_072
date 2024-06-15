@@ -6,19 +6,6 @@ import sett from '../assets/setting-2-svgrepo-com.svg';
 
 const RightSideBox = () => {
   const [appointments, setAppointments] = useState([]);
-  const [checkedItems, setCheckedItems] = useState([
-    false,
-    false,
-    false,
-    false,
-  ]);
-
-  const dailyTasks = [
-    'Drink 4 litres of water',
-    'Do Workout',
-    '8 hours of Sleep',
-    'Update the data',
-  ];
 
   useEffect(() => {
     const storedAppointments =
@@ -39,29 +26,8 @@ const RightSideBox = () => {
     ).getTime();
 
     setAppointments(storedAppointments);
-    setCheckedItems(storedCheckedItems);
-
-    if (
-      !lastResetTime ||
-      (currentTime >= today6AM && currentTime - today6AM < 24 * 60 * 60 * 1000)
-    ) {
-      localStorage.setItem('lastResetTime', today6AM);
-      setCheckedItems([false, false, false, false]);
-      localStorage.setItem(
-        'checkedItems',
-        JSON.stringify([false, false, false, false])
-      );
-    }
-
     removeExpiredAppointments(storedAppointments);
   }, []);
-
-  const handleCheckboxChange = (index) => {
-    const newCheckedItems = [...checkedItems];
-    newCheckedItems[index] = !newCheckedItems[index];
-    setCheckedItems(newCheckedItems);
-    localStorage.setItem('checkedItems', JSON.stringify(newCheckedItems));
-  };
 
   const handleCancelAppointment = (index) => {
     const updatedAppointments = [...appointments];
@@ -102,10 +68,13 @@ const RightSideBox = () => {
   return (
     <div
       style={{
+        position: 'sticky',
+        top: 0,
         width: '22%',
         background: '#f4f5f5',
         fontFamily: 'sans-serif',
         padding: '0px 10px',
+        height: '100vh',
       }}
     >
       <div
@@ -169,40 +138,20 @@ const RightSideBox = () => {
           <p style={{ color: '#adb3bc' }}>Age</p>
         </div>
       </div>
-      <div style={divstyle}>
+      <div>
         <p
           style={{
-            fontSize: '18px',
+            fontSize: '20px',
             fontWeight: '600',
             color: '#11a5bc',
             margin: '10px 0px',
+            textAlign: 'center',
+            marginTop: '25px',
           }}
         >
-          Daily Routines
+          My Schedule
         </p>
-        {dailyTasks.map((item, index) => (
-          <div
-            key={index}
-            style={{
-              background: 'white',
-              width: '90%',
-              display: 'flex',
-              alignItems: 'center',
-              margin: '10px',
-            }}
-          >
-            <Checkbox
-              size="lg"
-              colorScheme="teal"
-              isChecked={checkedItems[index]}
-              onChange={() => handleCheckboxChange(index)}
-            >
-              {item}
-            </Checkbox>
-          </div>
-        ))}
       </div>
-
       <p
         style={{
           fontSize: '20px',

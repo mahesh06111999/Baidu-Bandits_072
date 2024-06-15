@@ -9,11 +9,11 @@ import gym from '../assets/icons/exer.gif';
 import logout from '../assets/logout-svgrepo-com.svg';
 import { auth } from '../auth/firebase';
 import { signOut } from 'firebase/auth';
-import { Alert, AlertIcon } from '@chakra-ui/react';
 import home from '../assets/icons/home.gif';
-import logo from '../assets/fitness.png';
+
 const Navbar = () => {
   const location = useLocation();
+
   const signOff = async () => {
     try {
       await signOut(auth);
@@ -39,6 +39,8 @@ const Navbar = () => {
   return (
     <div
       style={{
+        position: 'sticky',
+        top: 0,
         width: '15%',
         display: 'flex',
         flexDirection: 'column',
@@ -73,7 +75,11 @@ const Navbar = () => {
               gap: '15px',
             }}
           >
-            <img src={logo} alt="" width="50px" />
+            <img
+              src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/a5d03133386945.56a96ee0bb381.png"
+              alt=""
+              width="50px"
+            />
             <span style={{ color: '#64748b' }}>Be Fit</span>
           </div>
         </div>
@@ -98,6 +104,10 @@ const Navbar = () => {
         <Link to="/doctorappointment" style={{ textDecoration: 'none' }}>
           <div style={getLinkStyle('/doctorappointment')}>
             <img src={doc} alt="" width="35px" />
+            <img
+              src="https://iconscout.com/lottie-animation/doctor-appointment-6188512"
+              alt=""
+            />
             Doctor Appointment
           </div>
         </Link>
@@ -120,7 +130,7 @@ const Navbar = () => {
           </div>
         </Link>
       </div>
-      <div style={{ marginBottom: '20%' }}>
+      <div style={{ marginBottom: '7%', marginLeft: '15px' }}>
         <button
           style={{
             fontSize: '25px',
@@ -128,6 +138,7 @@ const Navbar = () => {
             background: 'none',
             color: '#adb3bc',
           }}
+          onClick={signOff}
         >
           <div
             style={{
@@ -137,7 +148,6 @@ const Navbar = () => {
               padding: '5px',
               borderRadius: '10px',
             }}
-            onClick={signOff}
           >
             <img src={logout} alt="" width="30px" />
             Logout
