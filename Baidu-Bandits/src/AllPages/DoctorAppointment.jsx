@@ -1,27 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Auth } from './Auth';
-import { auth, db } from '../auth/firebase';
-import { getDoc, doc } from 'firebase/firestore';
-import {
-  Radio,
-  RadioGroup,
-  Stack,
-  Text,
-  Checkbox,
-  useToast,
-} from '@chakra-ui/react';
+import React, { useState } from 'react';
+import {  Radio,  RadioGroup,  Stack,  Text,  Checkbox,  useToast,} from '@chakra-ui/react';
 import RightSideBox from '../Components/RightSideBox';
 import Navbar from '../Components/Navbar';
-import { Navigate } from 'react-router-dom';
-
-const DoctorAppointment = () => {
-  const [data, setData] = useState(null);
- 
-  const toast = useToast();
-
-
-
-    
+const DoctorAppointment = () => { 
+  const toast = useToast();    
   const [formData, setFormData] = useState({
     title: '',
     fullName: '',
@@ -34,7 +16,6 @@ const DoctorAppointment = () => {
   });
 
   const [bookedSlots, setBookedSlots] = useState({});
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({

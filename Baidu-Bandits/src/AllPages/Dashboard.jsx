@@ -1,17 +1,13 @@
 
 import React from 'react';
 import { ChakraProvider, Box, Heading, Text, Image, Button, Grid, GridItem,CircularProgress,CircularProgressLabel } from '@chakra-ui/react';
-
 import image3 from '../assets/image3.png';
 import bargraph from '../assets/bargraph.png';
 import report from '../assets/report.png'
-
-
 import {auth} from "../auth/firebase";
 import Navbar from '../Components/Navbar';
 import RightSideBox from '../Components/RightSideBox';
 import { Navigate } from 'react-router';
-
 import yoga from '../assets/yoga.png'
 import dumble from '../assets/dumble.png'
 import walk from '../assets/walk.png'

@@ -4,12 +4,8 @@ import { Navigate } from "react-router";
 import { SignIn } from "../Components/SignIn";
 import Signup from "../Components/SignUpForm";
 
-// await createUserWithEmailAndPassword(auth,"h@h.com","000000")
-
 export const Auth = () => {
-    const [res, setres] = useState(true);
-      
-    
+    const [res, setres] = useState(true);   
 
   return (
     <>

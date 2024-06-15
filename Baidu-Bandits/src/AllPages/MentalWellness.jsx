@@ -1,17 +1,10 @@
-
 import Navbar from '../Components/Navbar';
 import RightSideBox from '../Components/RightSideBox';
 import { MentalWellnessComp } from '../pageComponents/MentalWellnessComp';
 
-
-
-
 const MentalWellness = () => {
-  return( 
-    
-    
-      <>  
-      
+  return(    
+      <>        
       <div style={{ display: 'flex' }}>
       <Navbar />
       <div style={{width:'63%'}}>
@@ -20,10 +13,7 @@ const MentalWellness = () => {
 
       </div>
       <RightSideBox />
-      </div>
-      
-      
-      
+      </div>      
       </>
 )
 };
