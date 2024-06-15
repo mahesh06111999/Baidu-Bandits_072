@@ -76,7 +76,7 @@ export const SignUp = ({ formData }) => {
   };
 
   const setData = async()=>{
-    const userId=auth?.currentUser?.uid
+    const userId=auth?.currentUser?.email
       setDoc(doc(db, "user",userId ),formData);
   }
 

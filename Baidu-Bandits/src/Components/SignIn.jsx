@@ -15,11 +15,16 @@ import {
   FormHelperText,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { auth } from "../auth/firebase";
+import { auth, db, fetchData } from "../auth/firebase";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { Navigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { FETCH } from '../redux/actionTypes';
+import { doc, getDoc } from 'firebase/firestore';
 
 export const SignIn = ({ setres }) => {
+  const dispatch =useDispatch()
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -82,20 +87,19 @@ export const SignIn = ({ setres }) => {
         duration: 5000,
         isClosable: true,
       });
-    } finally {
-      setEmail('');
-      setPassword('');
-      
+    } finally {    
+      fetchData(dispatch)
+      setEmail("")
     }
   };
 
-  const signOff = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const signOff = async () => {
+  //   try {
+  //     await signOut(auth);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const toggleSignUp = () => {
     setres((prevRes) => !prevRes); // Toggle the state of setres

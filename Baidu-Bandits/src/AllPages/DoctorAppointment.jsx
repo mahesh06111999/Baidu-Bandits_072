@@ -16,32 +16,12 @@ import { Navigate } from 'react-router-dom';
 
 const DoctorAppointment = () => {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+ 
   const toast = useToast();
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const userId = auth?.currentUser?.uid;
-      if (!userId) return;
 
-      try {
-        const docRef = doc(db, 'user', userId);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setData(docSnap.data());
-        } else {
-          console.log('No such document!');
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    fetchUserData();
-  }, [auth?.currentUser?.uid]);
-
+    
   const [formData, setFormData] = useState({
     title: '',
     fullName: '',
