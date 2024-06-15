@@ -11,27 +11,20 @@ import { auth } from '../auth/firebase';
 import { signOut } from 'firebase/auth';
 import { Alert, AlertIcon } from '@chakra-ui/react';
 import home from '../assets/home-1-svgrepo-com.svg';
+import logo from '../assets/fitness.png';
 const Navbar = () => {
   const location = useLocation();
-  const signOff = async()=>{
+  const signOff = async () => {
     try {
-        
-        await signOut(auth)
-        
-    }
-     catch (error) {
-        console.error(error);
-    }
-    finally{
-      
+      await signOut(auth);
+    } catch (error) {
+      console.error(error);
+    } finally {
       setTimeout(() => {
         window.location.reload();
-        
       }, 1000);
-      
     }
-  }
-  
+  };
 
   const getLinkStyle = (path) => ({
     display: 'flex',
@@ -64,7 +57,26 @@ const Navbar = () => {
           fontSize: '20px',
         }}
       >
-        <h1>Logo</h1>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '15px',
+            padding: '10px',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              fontSize: '30px',
+              alignItems: 'center',
+              gap: '20px',
+            }}
+          >
+            <img src={logo} alt="" width="70px" />
+            <span style={{ color: '#64748b' }}>Be Fit</span>
+          </div>
+        </div>
         <Link to="/" style={{ textDecoration: 'none' }}>
           <div style={getLinkStyle('/')}>
             <img src={home} alt="" width="35px" />
