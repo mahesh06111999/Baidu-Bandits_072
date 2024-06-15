@@ -9,25 +9,24 @@ const PersonalTraining = () => {
   // user data fatch.................
   const [data, setdata] = useState();
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
-    async function fetch(){      
-    const userId=auth?.currentUser?.uid
-  try {
-    if(auth?.currentUser?.uid){
-    const raw=  await getDoc(doc(db, "user",userId ))
-    const solved =raw.data()
-    console.log(solved);
-    setdata(solved)}
-    
-  } catch (error) {
-    console.log(error);
-  }finally{
-    setLoading(false);
-    
-  }
-}  
-fetch()   
+    async function fetch() {
+      const userId = auth?.currentUser?.uid;
+      try {
+        if (auth?.currentUser?.uid) {
+          const raw = await getDoc(doc(db, 'user', userId));
+          const solved = raw.data();
+          console.log(solved);
+          setdata(solved);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetch();
   }, []);
   return( 
     
@@ -50,7 +49,7 @@ fetch()
       </>
          
     </>
-)
+  );
 };
 
 export default PersonalTraining;
