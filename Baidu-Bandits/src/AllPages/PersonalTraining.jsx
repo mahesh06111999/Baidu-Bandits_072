@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { auth } from '../auth/firebase';
+import React, { useEffect, useState } from 'react';
+import { auth, db } from '../auth/firebase';
 import Navbar from '../Components/Navbar';
 import RightSideBox from '../Components/RightSideBox';
 import { Navigate } from 'react-router';
+import { doc, getDoc } from 'firebase/firestore';
 
 const PersonalTraining = () => {
   // user data fatch.................
@@ -27,14 +28,26 @@ const PersonalTraining = () => {
     }
     fetch();
   }, []);
-  return (
+  return( 
+    
     <>
-      {auth?.currentUser?.email === undefined && <Navigate replace to={'/'} />}
+  
+      <>
+      {
+        auth?.currentUser?.email===undefined && <Navigate replace to={"/"}/>
+      }
       <div style={{ display: 'flex' }}>
-        <Navbar />
-        <div style={{ width: '63%' }}>Personaltraining</div>
-        <RightSideBox />
+      <Navbar />
+      <div style={{width:'63%'}}>
+        Personaltraining
+  
+  
       </div>
+      <RightSideBox />
+    </div>
+
+      </>
+         
     </>
   );
 };

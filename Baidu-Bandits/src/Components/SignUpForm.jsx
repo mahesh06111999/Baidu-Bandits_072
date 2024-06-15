@@ -1,25 +1,7 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  Input,
-  Text,
-  Heading,
-  VStack,
-  useColorModeValue,
-  useToast,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  RadioGroup,
-  Stack,
-  Radio,
-  Checkbox,
-  Select,
-} from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Input, Text, Heading, VStack, useColorModeValue, useToast, FormControl, FormLabel, FormErrorMessage, RadioGroup, Stack, Radio, Checkbox, Select} from "@chakra-ui/react";
 import { SignUp } from './Signup';
+
 
 const SignUpForm = ({ setres }) => {
   const [next, setNext] = useState(false);
