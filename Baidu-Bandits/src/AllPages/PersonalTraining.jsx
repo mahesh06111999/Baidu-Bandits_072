@@ -4,6 +4,7 @@ import Navbar from '../Components/Navbar';
 import RightSideBox from '../Components/RightSideBox';
 import { Navigate } from 'react-router';
 import { doc, getDoc } from 'firebase/firestore';
+import Training from '../Components/Training';
 
 const PersonalTraining = () => {
   // user data fatch.................
@@ -28,26 +29,20 @@ const PersonalTraining = () => {
     }
     fetch();
   }, []);
-  return( 
-    
+  return (
     <>
-  
       <>
-      {
-        auth?.currentUser?.email===undefined && <Navigate replace to={"/"}/>
-      }
-      <div style={{ display: 'flex' }}>
-      <Navbar />
-      <div style={{width:'63%'}}>
-        Personaltraining
-  
-  
-      </div>
-      <RightSideBox />
-    </div>
-
+        {auth?.currentUser?.email === undefined && (
+          <Navigate replace to={'/'} />
+        )}
+        <div style={{ display: 'flex' }}>
+          <Navbar />
+          <div style={{ width: '63%' }}>
+            <Training />
+          </div>
+          <RightSideBox />
+        </div>
       </>
-         
     </>
   );
 };
