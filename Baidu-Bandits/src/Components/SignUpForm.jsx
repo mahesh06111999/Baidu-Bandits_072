@@ -6,15 +6,48 @@ import { SignUp } from './Signup';
 const SignUpForm = ({ setres }) => {
   const [next, setNext] = useState(false);
   const [formData, setFormData] = useState({
-    fullName: '',
-    gender: '',
-    age: '',
-    height: '',
+    calories: [
+        0, 0, 0, 0, 0, 0, 0
+    ],
+    age: "",
+    steps: [
+        0, 0, 0, 0, 0, 0, 0
+    ],
+    goal: "",
+    gender: "",
     weight: '',
-    goal: '',
-    termsAccepted: false,
-    privacyAccepted: false,
-  });
+    privacyAccepted: null,
+    tracker: {
+        thursday: {calories: null,
+          steps: null,
+          workedOut: null},
+        sunday: {calories: null,
+          steps: null,
+          workedOut: null},
+        saturday: {calories: null,
+          steps: null,
+          workedOut: null},
+        friday: {calories: null,
+          steps: null,
+          workedOut: null},
+        monday: {calories: null,
+          steps: null,
+          workedOut: null},
+        wednesday: {calories: null,
+          steps: null,
+          workedOut: null},
+        tuesday: {calories: null,
+          steps: null,
+          workedOut: null}
+    },
+    fullName: "",
+    appointment: null,
+    height: "",
+    exerciseTime: [
+        0, 0, 0, 0, 0, 0, 0
+    ],
+    termsAccepted: ''
+});
 
   const [formErrors, setFormErrors] = useState({
     fullName: '',

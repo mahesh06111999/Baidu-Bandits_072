@@ -1,51 +1,29 @@
 
 import React from 'react';
 import { ChakraProvider, Box, Heading, Text, Image, Button, Grid, GridItem,CircularProgress,CircularProgressLabel } from '@chakra-ui/react';
-import myImage from '../assets/myImage.png';
-import image2 from '../assets/image2.png';
+
 import image3 from '../assets/image3.png';
 import bargraph from '../assets/bargraph.png';
 import report from '../assets/report.png'
-import { useEffect, useState } from 'react';
 
-import {auth, db} from "../auth/firebase";
+
+import {auth} from "../auth/firebase";
 import Navbar from '../Components/Navbar';
 import RightSideBox from '../Components/RightSideBox';
 import { Navigate } from 'react-router';
-import { doc, getDoc } from 'firebase/firestore';
+
 import yoga from '../assets/yoga.png'
 import dumble from '../assets/dumble.png'
 import walk from '../assets/walk.png'
 import walkinggraph from '../assets/walkinggraph.png'
 import fitnesstimer from '../assets/fitnesstimer.png'
+import { useSelector } from 'react-redux';
 
 
-const Dashboard = () => {
- // user data fatch.................
- const [data, setdata] = useState();
- const [loading, setLoading] = useState(true);
- 
- useEffect(() => {
-   async function fetch(){      
-   const userId=auth?.currentUser?.uid
- try {
-   if(auth?.currentUser?.uid){
-   const raw=  await getDoc(doc(db, "user",userId ))
-   const solved =raw.data()
-   console.log(solved);
-   setdata(solved)}
-   
- } catch (error) {
-   console.log(error);
- }finally{
-   setLoading(false);
-   
- }
-}  
-fetch()   
- }, []);
-
-
+const Dashboard = () => { 
+  const state = useSelector(state=>state) 
+  console.log(state);
+    
   return (
     <>
     {

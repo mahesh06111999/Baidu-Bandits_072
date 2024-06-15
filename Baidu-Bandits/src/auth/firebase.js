@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import {getAuth} from 'firebase/auth'
 import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
+import { useDispatch } from "react-redux";
+import { FETCH } from "../redux/actionTypes";
 
 
 
@@ -17,6 +19,72 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig); 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+
+export function fetchData(dispatch){
+  getDoc(doc(db, "user",auth?.currentUser?.email))
+      .then(res=>res.data())
+      .then(resp=> dispatch({type:FETCH,payload:resp}))
+      .catch(err=>console.log(err))
+}
+
+
+
+
+function updateData(data){
+  updateDoc(doc(db,"user",auth.currentUser.email),data)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export const fetchUserData = async () => {
+//   const userId = auth?.currentUser?.uid;
+//   if (!userId) return;
+
+//   try {
+//     const docRef = doc(db, 'user', userId);
+//     const docSnap = await getDoc(docRef);
+//     if (docSnap.exists()) {
+      
+//     } else {
+//       console.log('No such document!');
+//     }
+//   } catch (error) {
+//     console.error('Error fetching user data:', error);
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
 
 // firebase login
 // firebase init
