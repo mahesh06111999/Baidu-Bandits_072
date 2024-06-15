@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import dashboard from '../assets/dashboard-svgrepo-com (3).svg';
-import activity from '../assets/activity-tracker-fitness-svgrepo-com.svg';
-import doc from '../assets/doctor-bag-svgrepo-com.svg';
+import dashboard from '../assets/icons/dash.gif';
+import activity from '../assets/icons/AT.gif';
+import doc from '../assets/icons/ha.gif';
 import mental from '../assets/mental-health-svgrepo-com.svg';
-import nutri from '../assets/i-nutrition-svgrepo-com.svg';
-import gym from '../assets/gym-svgrepo-com.svg';
+import nutri from '../assets/icons/nutri.gif';
+import gym from '../assets/icons/exer.gif';
 import logout from '../assets/logout-svgrepo-com.svg';
 import { auth } from '../auth/firebase';
 import { signOut } from 'firebase/auth';
-import home from '../assets/home-1-svgrepo-com.svg';
+import home from '../assets/icons/home.gif';
 
 const Navbar = () => {
   const location = useLocation();
