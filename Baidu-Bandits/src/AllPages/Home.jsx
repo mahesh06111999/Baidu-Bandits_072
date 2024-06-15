@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import home from '../assets/home-1-svgrepo-com.svg';
 import calfit from "../assets/calfit.png";
+import logo from '../assets/logo.png'
+
 
 const MotionFlex = motion(Flex);
 const MotionHeading = motion(Heading);
@@ -15,10 +17,10 @@ const Home = () => {
     <Box>
       <Flex as="nav" justify="space-between" backgroundColor={"#262A3B"} p={0}>
         <Box>
-          <Image src={calfit} alt="CalFit Logo" />
+          <Image src={calfit} alt="CalFit Logo" width={"100px"} height={"60px"} margin={"5"}/> 
         </Box>
         <Flex gap={4}>
-          <Button colorScheme="blue" marginTop={"8"} marginRight={"8"}>
+          <Button colorScheme="blue" marginTop={"5"} marginRight={"8"}>
             <Link to="/auth">Log In</Link>
           </Button>
         </Flex>
