@@ -85,8 +85,16 @@
     /* background-color: orange; */
     height: 60vh;
   }
-  /* .nutrii-footer{
-    background-color: blueviolet;
-    height: 30vh;
-  } */
+  .nutrii-footer{
+    /* background-color: blueviolet; */
+    /* height: 30vh;  text-align:center;  */
+    color:white;
+     background-color: #11a5bc;
+     height:130px;
+   
+     font-family: "Roboto", sans-serif;
+     font-weight: 100;
+     font-style: normal;
+     border-radius:10px ;
   
+  }

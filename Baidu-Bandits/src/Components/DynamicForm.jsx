@@ -7,7 +7,6 @@ import {
   Button,
   Stack,
   Box,
- 
   VStack,
   useColorModeValue,
   SimpleGrid,
@@ -76,6 +75,16 @@ const DynamicForm = () => {
   const formBgColor = useColorModeValue('gray.50', 'gray.700');
   const formBorderColor = useColorModeValue('gray.200', 'gray.600');
 
+  // Define colors for each day
+  const dayColors = {
+    Monday: 'red.100',
+    Tuesday: 'orange.100',
+    Wednesday: 'yellow.100',
+    Thursday: 'green.100',
+    Friday: 'blue.100',
+    Saturday: 'purple.100',
+  };
+
   return (
     <Box maxW="xll" mx="auto" mt={1} p={6} bg={formBgColor} borderRadius="md" boxShadow="lg">
       <h1 className='activity'>Weekly Workout Tracker</h1>
@@ -102,7 +111,7 @@ const DynamicForm = () => {
 
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={8}>
         {daysOfWeek.map((day) => (
-          <Box key={day} p={5} shadow="md" borderWidth="1px" borderRadius="md" position="relative">
+          <Box key={day} p={5} shadow="md" borderWidth="1px" borderRadius="md" position="relative" bg={dayColors[day]}>
             <h1 className='board-card-week'>{day}</h1>
             <VStack align="start">
               <HStack>
