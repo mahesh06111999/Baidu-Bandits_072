@@ -70,10 +70,10 @@ const Navbar = () => {
               display: 'flex',
               fontSize: '30px',
               alignItems: 'center',
-              gap: '20px',
+              gap: '15px',
             }}
           >
-            <img src={logo} alt="" width="70px" />
+            <img src={logo} alt="" width="50px" />
             <span style={{ color: '#64748b' }}>Be Fit</span>
           </div>
         </div>
