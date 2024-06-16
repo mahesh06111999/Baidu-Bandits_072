@@ -51,7 +51,7 @@ export function updateData(data) {
 // firebase deploy
 
 // Add a new document in collection "cities"
-// const userId=auth?.currentUser?.email
+// const userId=auth?.curhffhrentUser?.email
 // await setDoc(doc(db, "user","userId" ), {
 
 // calories:[23,45,68,4,7,343,756,345,45,45,45,45,445,636,]
