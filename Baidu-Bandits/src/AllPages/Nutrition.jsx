@@ -3,7 +3,6 @@ import Navbar from '../Components/Navbar';
 import RightSideBox from '../Components/RightSideBox';
 import NutritioniComp from '../pageComponents/NutritionComp';
 
-
 const Nutrition = () => {  
   return(    
     <>  
@@ -15,8 +14,7 @@ const Nutrition = () => {
     <RightSideBox />
   </div> 
     
-  </>
-    
+  </>   
 
 )
 };
