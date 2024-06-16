@@ -1,12 +1,18 @@
-
 import React from 'react';
-import { Box, Button, Flex, Heading, Image , Text , Divider } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  Divider,
+} from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import home from '../assets/home-1-svgrepo-com.svg';
-import calfit from "../assets/calfit.png";
-import logo from '../assets/logo.png'
-
+import calfit from '../assets/calfit.png';
+import logo from '../assets/logo.png';
 
 const MotionFlex = motion(Flex);
 const MotionHeading = motion(Heading);
@@ -15,12 +21,28 @@ const MotionButton = motion(Button);
 const Home = () => {
   return (
     <Box>
-      <Flex as="nav" justify="space-between" backgroundColor={"#262A3B"} p={0}>
+      <Flex
+        as="nav"
+        justify="space-between"
+        backgroundColor={'#11a5bc'}
+        p={0}
+        alignItems={'center'}
+      >
         <Box>
-          <Image src={calfit} alt="CalFit Logo" width={"100px"} height={"60px"} margin={"5"}/> 
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Image
+              src={logo}
+              alt="CalFit Logo"
+              width={'70px'}
+              height={'60px'}
+              margin={'5'}
+            />
+
+            <p style={{ color: 'white', fontSize: '30px' }}>Be Fit</p>
+          </div>
         </Box>
         <Flex gap={4}>
-          <Button colorScheme="blue" marginTop={"5"} marginRight={"8"}>
+          <Button background="grey" marginRight={'8'} color={'white'}>
             <Link to="/auth">Log In</Link>
           </Button>
         </Flex>
@@ -31,7 +53,7 @@ const Home = () => {
         align="center"
         justify="center"
         h="80vh"
-        color={"white"}
+        color={'white'}
         bgImage="url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3')"
         bgSize="cover"
         bgRepeat="no-repeat"
@@ -60,88 +82,141 @@ const Home = () => {
         </MotionHeading>
         <MotionButton
           colorScheme="green"
-          size='lg'
+          size="lg"
           mt={6}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5, delay: 1.5 }}
         >
-           <Link to="/auth">Sign Up - It,s Free</Link>
+          <Link to="/auth">Sign Up </Link>
         </MotionButton>
       </MotionFlex>
       {/* //for about section */}
-      <Heading as="h1" size="xl" textAlign={"center"} mt={10}>
-                Services We Provide
+      <Heading as="h1" size="lg" textAlign={'center'} mt={10}>
+        Services We Provide
       </Heading>
-      <Text size="md" textAlign={"center"} m={5} mb={20}>
-      Count your calories, ensure you're meeting nutrient targets, and see your progress over time.
+      <Text size="md" textAlign={'center'} m={5} mb={20}>
+        Count your calories, ensure you're meeting nutrient targets, and see
+        your progress over time.
       </Text>
-     
-      <Flex flexWrap="wrap" justifyContent={"center"} gap={6}>
-          {/* Box 1 */}
-         
-          <Box textAlign="center" w="calc(30% - 3rem)" p={4} >
-              <div style={{marginLeft:"30px"}}>
-                <Image src="https://cdn1.cronometer.com/webflow/cronometer-features-11.svg" alt="Nutrient Tracker" />
-              </div>
-              <Heading as="h1" size="sm" my={2}>
-                Track your daily Activity
-              </Heading>
-              <Text fontSize="sm">
-                Log your meals and track all your macro and micronutrients.
-              </Text>
-          </Box>
-          <Box textAlign="center" w="calc(30% - 3rem)" p={4} >
-              <div style={{marginLeft:"30px"}}>
-                 <Image src="https://cdn1.cronometer.com/webflow/cronometer-features-13.svg" alt="Nutrient Tracker" />
-              </div>
-              <Heading as="h1" size="sm" my={2}>
-                Personalized Dashboard on Valuable reports and charts
-              </Heading>
-              <Text fontSize="sm">
-              Learn how nutrients and biometrics correlate over time.
-              </Text>
-          </Box>
-          <Box textAlign="center" w="calc(30% - 3rem)" p={4} >
-          <div style={{marginLeft:"30px"}}>
-              <Image src="https://cdn1.cronometer.com/webflow/cronometer-features-12.svg" alt="Nutrient Tracker" /></div>
-              <Heading as="h1" size="sm" my={2}>
-                 Diet and Nutrition Support
-              </Heading>
-              <Text fontSize="sm">
-                Whether your Keto, Vegan, or on one recommended by your doctor.
-              </Text>
-          </Box>
-          <Box textAlign="center" w="calc(30% - 3rem)" p={4} >
-              <div style={{marginLeft:"20px"}}> <Image src="https://cdn1.cronometer.com/webflow/cronometer-features-14.svg" alt="Nutrient Tracker" /></div>
-              <Heading as="h1" size="sm" my={2}>
-                Training Recommendation
-              </Heading>
-              <Text fontSize="sm">
-                We recommended the best training for your needs.
-              </Text>
-          </Box>
-          <Box textAlign="center" w="calc(30% - 3rem)" p={4} >
-              <div style={{marginLeft:"30px"}}><Image src="https://cdn1.cronometer.com/webflow/cronometer-features-16.svg" alt="Nutrient Tracker" /></div>
-              
-              <Heading as="h1" size="sm" my={2}>
-                Mental Health
-              </Heading>
-              <Text fontSize="sm">
-                Talk to our expert doctor's for mental health
-              </Text>
-          </Box>
-          
+
+      <Flex flexWrap="wrap" justifyContent={'center'} gap={0} pb={'50px'}>
+        {/* Box 1 */}
+
+        <Flex
+          textAlign="center"
+          w={'350px'}
+          p={4}
+          direction={'column'}
+          alignItems={'center'}
+        >
+          <Image
+            src="https://cdn1.cronometer.com/webflow/cronometer-features-11.svg"
+            alt="Nutrient Tracker"
+            width={'200px'}
+          />
+
+          <Heading as="h1" size="sm" my={2}>
+            Track your daily Activity
+          </Heading>
+          <Text fontSize="sm">
+            Log your meals and track all your macro and micronutrients.
+          </Text>
+        </Flex>
+        {/*  */}
+        <Flex
+          textAlign="center"
+          w={'350px'}
+          p={4}
+          direction={'column'}
+          alignItems={'center'}
+        >
+          <Image
+            src="https://cdn1.cronometer.com/webflow/cronometer-features-13.svg"
+            alt="Nutrient Tracker"
+            width={'200px'}
+          />
+
+          <Heading as="h1" size="sm" my={2}>
+            Personalized Dashboard on Valuable reports and charts
+          </Heading>
+          <Text fontSize="sm">
+            Learn how nutrients and biometrics correlate over time.
+          </Text>
+        </Flex>
+        <Flex
+          textAlign="center"
+          w={'350px'}
+          p={4}
+          direction={'column'}
+          alignItems={'center'}
+        >
+          <Image
+            src="https://cdn1.cronometer.com/webflow/cronometer-features-12.svg"
+            alt="Nutrient Tracker"
+            width={'200px'}
+          />
+
+          <Heading as="h1" size="sm" my={2}>
+            Diet and Nutrition Support
+          </Heading>
+          <Text fontSize="sm">
+            Whether your Keto, Vegan, or on one recommended by your doctor.
+          </Text>
+        </Flex>
+        <Flex
+          textAlign="center"
+          w={'350px'}
+          p={4}
+          direction={'column'}
+          alignItems={'center'}
+        >
+          <Image
+            src="https://cdn1.cronometer.com/webflow/cronometer-features-14.svg"
+            alt="Nutrient Tracker"
+            width={'200px'}
+          />
+
+          <Heading as="h1" size="sm" my={2}>
+            Training Recommendation
+          </Heading>
+          <Text fontSize="sm">
+            We recommended the best training for your needs.
+          </Text>
+        </Flex>
+        <Flex
+          textAlign="center"
+          w={'350px'}
+          p={4}
+          direction={'column'}
+          alignItems={'center'}
+        >
+          <Image
+            src="https://cdn1.cronometer.com/webflow/cronometer-features-16.svg"
+            alt="Nutrient Tracker"
+            width={'200px'}
+          />
+
+          <Heading as="h1" size="sm" my={2}>
+            Mental Health
+          </Heading>
+          <Text fontSize="sm">
+            Talk to our expert doctor's for mental health
+          </Text>
+        </Flex>
       </Flex>
-      
+
       {/* Copyright Section */}
-      <Box textAlign="center" py={4} backgroundColor={"#262A3B"} color={"white"}>
-        <Text>&copy; 2024 CaloFit. All rights reserved.</Text>
+      <Box
+        textAlign="center"
+        py={4}
+        backgroundColor={'#11a5bc'}
+        color={'white'}
+      >
+        <Text>&copy; 2024 Be Fit. All rights reserved.</Text>
       </Box>
     </Box>
   );
 };
 
 export default Home;
-
-
