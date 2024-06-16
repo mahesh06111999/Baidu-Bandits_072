@@ -12,7 +12,7 @@ import {
 export const init = {
   schedulearr: [],
   doctorAppointments: [],
-  refresh:true
+  refresh:true,
 
   weeklyData: {},
   editMode: {},

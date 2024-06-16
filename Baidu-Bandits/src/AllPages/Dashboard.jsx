@@ -19,9 +19,9 @@ import { useDispatch, useSelector } from 'react-redux';
 const Dashboard = () => { 
   const dispatch = useDispatch();
   const state = useSelector(state=>state) 
-  console.log(state);
+
     
-  if(auth?.currentUser?.email && state.refresh){
+  if(auth?.currentUser?.email && !state.refresh){
     console.log("fetch working.....");
     fetchData(dispatch)
   }

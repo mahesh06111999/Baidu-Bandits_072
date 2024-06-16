@@ -8,8 +8,8 @@ function App() {
   const dispatch =useDispatch()
   const state = useSelector((state) => state);
   useEffect(() => {
-    console.log('working');
     if (auth?.currentUser?.email) {
+      console.log('working');
       
       updateData(state);
     }
