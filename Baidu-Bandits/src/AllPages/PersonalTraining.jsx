@@ -30,20 +30,16 @@ const PersonalTraining = () => {
     fetch();
   }, []);
   return (
-    <>
-      <>
-        {auth?.currentUser?.email === undefined && (
-          <Navigate replace to={'/'} />
-        )}
-        <div style={{ display: 'flex' }}>
-          <Navbar />
-          <div style={{ width: '63%' }}>
-            <Training />
-          </div>
-          <RightSideBox />
+    <div style={{ marginTop: '-25px' }}>
+      {auth?.currentUser?.email === undefined && <Navigate replace to={'/'} />}
+      <div style={{ display: 'flex' }}>
+        <Navbar />
+        <div style={{ width: '63%' }}>
+          <Training />
         </div>
-      </>
-    </>
+        <RightSideBox />
+      </div>
+    </div>
   );
 };
 
