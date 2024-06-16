@@ -28,7 +28,6 @@ const DoctorAppointment = () => {
   });
 
   const [bookedSlots, setBookedSlots] = useState({});
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
