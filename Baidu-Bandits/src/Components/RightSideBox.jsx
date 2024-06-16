@@ -17,6 +17,7 @@ const RightSideBox = () => {
 
     return () => clearInterval(interval);
   }, []);
+ 
 
   const checkExpiredAppointments = () => {
     const now = new Date();
@@ -48,6 +49,7 @@ const RightSideBox = () => {
   const handleComplete = (id) => {
     dispatch({ type: COMPLETE, payload: id });
   };
+ 
 
   return (
     <div
