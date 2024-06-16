@@ -1,19 +1,8 @@
 import React from 'react';
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Image,
-  Text,
-  Divider,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Image, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import home from '../assets/home-1-svgrepo-com.svg';
-import calfit from '../assets/calfit.png';
 import logo from '../assets/logo.png';
-
 const MotionFlex = motion(Flex);
 const MotionHeading = motion(Heading);
 const MotionButton = motion(Button);
@@ -24,7 +13,7 @@ const Home = () => {
       <Flex
         as="nav"
         justify="space-between"
-        backgroundColor={'#11a5bc'}
+        backgroundColor={'#6ac6e3'}
         p={0}
         alignItems={'center'}
       >
@@ -42,7 +31,7 @@ const Home = () => {
           </div>
         </Box>
         <Flex gap={4}>
-          <Button background="grey" marginRight={'8'} color={'white'}>
+          <Button background="#0255a6" marginRight={'8'} color={'white'}>
             <Link to="/auth">Log In</Link>
           </Button>
         </Flex>
@@ -54,7 +43,7 @@ const Home = () => {
         justify="center"
         h="80vh"
         color={'white'}
-        bgImage="url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3')"
+        bgImage="url('https://img.freepik.com/free-photo/sports-dumbbells-flat-lay-isolated-blue_169016-16704.jpg?size=626&ext=jpg&ga=GA1.1.1141335507.1718150400&semt=ais_user')"
         bgSize="cover"
         bgRepeat="no-repeat"
         bgPosition="center"
@@ -92,7 +81,7 @@ const Home = () => {
         </MotionButton>
       </MotionFlex>
       {/* //for about section */}
-      <Heading as="h1" size="lg" textAlign={'center'} mt={10}>
+      <Heading as="h1" size="lg" textAlign={'center'} mt={20}>
         Services We Provide
       </Heading>
       <Text size="md" textAlign={'center'} m={5} mb={20}>
@@ -210,7 +199,7 @@ const Home = () => {
       <Box
         textAlign="center"
         py={4}
-        backgroundColor={'#11a5bc'}
+        backgroundColor={'#6ac6e3'}
         color={'white'}
       >
         <Text>&copy; 2024 Be Fit. All rights reserved.</Text>
