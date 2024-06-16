@@ -1,59 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Avatar, Button } from '@chakra-ui/react';
 import loc from '../assets/location-pin-svgrepo-com.svg';
 import bell from '../assets/bell-svgrepo-com.svg';
 import sett from '../assets/setting-2-svgrepo-com.svg';
 import { useSelector, useDispatch } from 'react-redux';
-import { COMPLETE } from '../redux/actionTypes';
+import { COMPLETE, DELETEAPPOINTMENT } from '../redux/actionTypes';
 
 const RightSideBox = () => {
   const dispatch = useDispatch();
   const userobj = useSelector((state) => state);
 
-  const [appointments, setAppointments] = useState([]);
-
   useEffect(() => {
-    const storedAppointments =
-      JSON.parse(localStorage.getItem('appData')) || [];
-    const storedCheckedItems = JSON.parse(
-      localStorage.getItem('checkedItems')
-    ) || [false, false, false, false];
-    const lastResetTime = localStorage.getItem('lastResetTime');
-    const now = new Date();
-    const currentTime = now.getTime();
-    const today6AM = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      6,
-      0,
-      0
-    ).getTime();
+    const interval = setInterval(() => {
+      checkExpiredAppointments();
+    }, 60000);
 
-    setAppointments(storedAppointments);
-    removeExpiredAppointments(storedAppointments);
+    return () => clearInterval(interval);
   }, []);
 
-  const handleCancelAppointment = (index) => {
-    const updatedAppointments = [...appointments];
-    updatedAppointments.splice(index, 1);
-    setAppointments(updatedAppointments);
-    localStorage.setItem('appData', JSON.stringify(updatedAppointments));
-  };
-
-  const removeExpiredAppointments = (storedAppointments) => {
+  const checkExpiredAppointments = () => {
     const now = new Date();
     const currentTime = now.getTime();
-    const updatedAppointments = storedAppointments.filter((appointment) => {
-      const appointmentTime = new Date(
-        `${appointment.date} ${appointment.time}`
-      ).getTime();
-      return appointmentTime >= currentTime;
-    });
-    if (updatedAppointments.length !== storedAppointments.length) {
-      setAppointments(updatedAppointments);
-      localStorage.setItem('appData', JSON.stringify(updatedAppointments));
+    const updatedAppointments = userobj.doctorAppointments.filter(
+      (appointment) => {
+        const appointmentTime = new Date(
+          `${appointment.date} ${appointment.time}`
+        ).getTime();
+        return appointmentTime >= currentTime;
+      }
+    );
+
+    if (updatedAppointments.length !== userobj.doctorAppointments.length) {
+      updatedAppointments.forEach((appointment) => {
+        const appointmentTime = new Date(
+          `${appointment.date} ${appointment.time}`
+        ).getTime();
+        if (appointmentTime < currentTime) {
+          dispatch({ type: DELETEAPPOINTMENT, payload: appointment.id });
+        }
+      });
     }
+  };
+  const handleCancelAppointment = (id) => {
+    dispatch({ type: DELETEAPPOINTMENT, payload: id });
   };
 
   const handleComplete = (id) => {
@@ -217,8 +206,8 @@ const RightSideBox = () => {
         Upcoming Appointments
       </p>
 
-      {appointments.length > 0 ? (
-        appointments.map((item, index) => (
+      {userobj.doctorAppointments.length > 0 ? (
+        userobj.doctorAppointments.map((item, index) => (
           <div
             key={index}
             style={{
@@ -239,7 +228,7 @@ const RightSideBox = () => {
             <Button
               colorScheme="red"
               size="sm"
-              onClick={() => handleCancelAppointment(index)}
+              onClick={() => handleCancelAppointment(item.id)}
               style={{ marginTop: '10px' }}
             >
               Cancel Appointment

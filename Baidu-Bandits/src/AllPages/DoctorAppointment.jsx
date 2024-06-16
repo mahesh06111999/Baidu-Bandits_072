@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
-import {  Radio,  RadioGroup,  Stack,  Text,  Checkbox,  useToast,} from '@chakra-ui/react';
+import { useDispatch } from 'react-redux';
+import { BOOKAPPOINTMENT } from '../redux/actionTypes';
+import {
+  Radio,
+  RadioGroup,
+  Stack,
+  Text,
+  Checkbox,
+  useToast,
+} from '@chakra-ui/react';
 import RightSideBox from '../Components/RightSideBox';
 import Navbar from '../Components/Navbar';
-const DoctorAppointment = () => { 
-  const toast = useToast();    
+
+const DoctorAppointment = () => {
+  const dispatch = useDispatch();
+  const toast = useToast();
+
   const [formData, setFormData] = useState({
     title: '',
     fullName: '',
@@ -37,9 +49,7 @@ const DoctorAppointment = () => {
       [date]: [...(prevSlots[date] || []), time],
     }));
 
-    const appointmentData = JSON.parse(localStorage.getItem('appData')) || [];
-    appointmentData.push(formData);
-    localStorage.setItem('appData', JSON.stringify(appointmentData));
+    dispatch({ type: BOOKAPPOINTMENT, payload: formData });
 
     toast({
       title: 'Appointment booked.',
@@ -81,14 +91,6 @@ const DoctorAppointment = () => {
   const availableTimes = formData.date
     ? times.filter((time) => !(bookedSlots[formData.date] || []).includes(time))
     : times;
-
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (!auth?.currentUser?.email) {
-  //   return <Navigate replace to="/" />;
-  // }
 
   return (
     <div style={{ display: 'flex' }}>

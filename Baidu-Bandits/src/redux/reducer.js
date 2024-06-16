@@ -1,13 +1,21 @@
-import { FETCH, UPDATE, ADDTOSCHEDULE, COMPLETE } from './actionTypes';
+import {
+  FETCH,
+  UPDATE,
+  ADDTOSCHEDULE,
+  COMPLETE,
+  BOOKAPPOINTMENT,
+  DELETEAPPOINTMENT,
+} from './actionTypes';
 
 export const init = {
   schedulearr: [],
+  doctorAppointments: [],
 };
 
 export const reducer = (state = init, action) => {
   switch (action.type) {
     case FETCH:
-      return { ...state, schedulearr: action.payload }; // Assuming payload is an array of schedule items
+      return { ...state, schedulearr: action.payload };
 
     case UPDATE:
       return {
@@ -27,6 +35,20 @@ export const reducer = (state = init, action) => {
       return {
         ...state,
         schedulearr: state.schedulearr.filter(
+          (item) => item.id !== action.payload
+        ),
+      };
+
+    case BOOKAPPOINTMENT:
+      return {
+        ...state,
+        doctorAppointments: [...state.doctorAppointments, action.payload],
+      };
+
+    case DELETEAPPOINTMENT:
+      return {
+        ...state,
+        doctorAppointments: state.doctorAppointments.filter(
           (item) => item.id !== action.payload
         ),
       };
