@@ -1,53 +1,36 @@
 import React, { useState } from 'react';
-import { Box, Button, Center, Flex, Input, Text, Heading, VStack, useColorModeValue, useToast, FormControl, FormLabel, FormErrorMessage, RadioGroup, Stack, Radio, Checkbox, Select} from "@chakra-ui/react";
+import {
+  Box, Button, Center, Flex, Input, Text, Heading, VStack,
+  useColorModeValue, useToast, FormControl, FormLabel, FormErrorMessage,
+  RadioGroup, Stack, Radio, Checkbox, Select
+} from "@chakra-ui/react";
 import { SignUp } from './Signup';
-
 
 const SignUpForm = ({ setres }) => {
   const [next, setNext] = useState(false);
   const [formData, setFormData] = useState({
-    calories: [
-        0, 0, 0, 0, 0, 0, 0
-    ],
+    calories: [0, 0, 0, 0, 0, 0, 0],
     age: "",
-    steps: [
-        0, 0, 0, 0, 0, 0, 0
-    ],
+    steps: [0, 0, 0, 0, 0, 0, 0],
     goal: "",
     gender: "",
     weight: '',
     privacyAccepted: null,
     tracker: {
-        thursday: {calories: null,
-          steps: null,
-          workedOut: null},
-        sunday: {calories: null,
-          steps: null,
-          workedOut: null},
-        saturday: {calories: null,
-          steps: null,
-          workedOut: null},
-        friday: {calories: null,
-          steps: null,
-          workedOut: null},
-        monday: {calories: null,
-          steps: null,
-          workedOut: null},
-        wednesday: {calories: null,
-          steps: null,
-          workedOut: null},
-        tuesday: {calories: null,
-          steps: null,
-          workedOut: null}
+      thursday: {calories: null, steps: null, workedOut: null},
+      sunday: {calories: null, steps: null, workedOut: null},
+      saturday: {calories: null, steps: null, workedOut: null},
+      friday: {calories: null, steps: null, workedOut: null},
+      monday: {calories: null, steps: null, workedOut: null},
+      wednesday: {calories: null, steps: null, workedOut: null},
+      tuesday: {calories: null, steps: null, workedOut: null}
     },
     fullName: "",
     appointment: null,
     height: "",
-    exerciseTime: [
-        0, 0, 0, 0, 0, 0, 0
-    ],
+    exerciseTime: [0, 0, 0, 0, 0, 0, 0],
     termsAccepted: ''
-});
+  });
 
   const [formErrors, setFormErrors] = useState({
     fullName: '',
@@ -78,7 +61,6 @@ const SignUpForm = ({ setres }) => {
   };
 
   const handleInputChange = (e) => {
-    console.log(e);
     const { name, value, type, checked } = e.target;
     const val = type === 'checkbox' ? checked : value;
 
@@ -96,16 +78,16 @@ const SignUpForm = ({ setres }) => {
   };
 
   const handleNext = () => {
-    // if (!validateForm()) {
-    //   toast({
-    //     title: "Error",
-    //     description: "Please correct the highlighted errors",
-    //     status: "error",
-    //     duration: 5000,
-    //     isClosable: true,
-    //   });
-    //   return;
-    // }
+    if (!validateForm()) {
+      toast({
+        title: "Error",
+        description: "Please correct the highlighted errors",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
     // console.log(formData);
     setNext(true);
   };
