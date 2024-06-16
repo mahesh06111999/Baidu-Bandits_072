@@ -18,6 +18,7 @@ const DynamicForm = () => {
     const { name, value } = e.target;
     dispatch(setWeeklyData(day, { ...weeklyData[day], [name]: value }));
   };
+  // console.log(data)
 
   const handleRadioChange = (value, name, day) => {
     dispatch(setWeeklyData(day, { ...weeklyData[day], [name]: value }));
