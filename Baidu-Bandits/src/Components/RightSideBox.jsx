@@ -144,7 +144,7 @@ const RightSideBox = () => {
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          {userobj.schedulearr &&
+          {userobj.schedulearr.length > 0 &&
             userobj.schedulearr.map((item, index) => (
               <div
                 key={index}
