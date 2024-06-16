@@ -5,12 +5,17 @@ import {
   COMPLETE,
   BOOKAPPOINTMENT,
   DELETEAPPOINTMENT,
+  SET_WEEKLY_DATA,
+  SET_EDIT_MODE,
 } from './actionTypes';
 
 export const init = {
   schedulearr: [],
   doctorAppointments: [],
   refresh:true
+
+  weeklyData: {},
+  editMode: {},
 };
 
 export const reducer = (state = init, action) => {
@@ -53,6 +58,23 @@ export const reducer = (state = init, action) => {
           (item) => item.id !== action.payload
         ),
       };
+
+      case SET_WEEKLY_DATA:
+        return {
+          ...state,
+          weeklyData: {
+            ...state.weeklyData,
+            [action.payload.day]: action.payload.data,
+          },
+        };
+      case SET_EDIT_MODE:
+        return {
+          ...state,
+          editMode: {
+            ...state.editMode,
+            [action.payload.day]: action.payload.mode,
+          },
+        };  
 
     default:
       return state;
