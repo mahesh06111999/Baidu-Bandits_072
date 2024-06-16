@@ -48,6 +48,7 @@ const Navbar = () => {
         height: '100vh',
         background: '#fafafa',
         padding: '5px',
+        overflowY: 'auto',  // Enable scrollbar
       }}
     >
       <div
@@ -104,10 +105,6 @@ const Navbar = () => {
         <Link to="/doctorappointment" style={{ textDecoration: 'none' }}>
           <div style={getLinkStyle('/doctorappointment')}>
             <img src={doc} alt="" width="35px" />
-            <img
-              src="https://iconscout.com/lottie-animation/doctor-appointment-6188512"
-              alt=""
-            />
             Doctor Appointment
           </div>
         </Link>

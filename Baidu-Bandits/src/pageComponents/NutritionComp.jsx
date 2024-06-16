@@ -5,6 +5,7 @@ import CustomSkeleton from "../Components/Skeleton";
 import { Box, Heading, VStack, Text, SimpleGrid, Image, Button, Flex } from '@chakra-ui/react';
 import { motion } from "framer-motion";
 import { nutritionSuggestions } from "../Components/dietCards";
+import { useDispatch, useSelector } from "react-redux";
 
 
 
@@ -61,29 +62,33 @@ const UserProfile = ({ data, handleCalculateBMI }) => (
 );
 
 const NutritioniComp = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+ 
+  const [loading, setLoading] = useState(false);
   const [bmi, setBmi] = useState(null);
   const [bmiCategory, setBmiCategory] = useState(null);
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state);
+  console.log(data);
 
-  useEffect(() => {
-    async function fetch() {
-      const userId = auth?.currentUser?.uid;
-      try {
-        if (userId) {
-          const raw = await getDoc(doc(db, "user", userId));
-          const solved = raw.data();
-          console.log(solved);
-          setData(solved);
-        }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetch();
-  }, []);
+
+  // useEffect(() => {
+  //   async function fetch() {
+  //     const userId = auth?.currentUser?.uid;
+  //     try {
+  //       if (userId) {
+  //         const raw = await getDoc(doc(db, "user", userId));
+  //         const solved = raw.data();
+  //         console.log(solved);
+  //         setData(solved);
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  //   fetch();
+  // }, []);
 
   const handleCalculateBMI = () => {
     if (data) {
