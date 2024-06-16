@@ -16,7 +16,11 @@ const ExerciseRecommendation = ({ formData }) => {
   ];
 
   return (
+
     <Box textAlign="center" py={10}>
+      {
+      auth?.currentUser?.email===undefined && <Navigate replace to={"/"}/>
+    }
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

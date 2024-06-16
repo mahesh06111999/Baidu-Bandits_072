@@ -19,8 +19,7 @@ import { auth, db, fetchData } from "../auth/firebase";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { Navigate } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { FETCH } from '../redux/actionTypes';
-import { doc, getDoc } from 'firebase/firestore';
+
 
 export const SignIn = ({ setres }) => {
   const dispatch =useDispatch()
@@ -37,7 +36,7 @@ export const SignIn = ({ setres }) => {
   };
 
   const validatePassword = (password) => {
-    return password.length > 6;
+    return password.length >= 6;
   };
 
   const handleEmailChange = (e) => {

@@ -6,6 +6,7 @@ import { SignUp } from './Signup';
 const SignUpForm = ({ setres }) => {
   const [next, setNext] = useState(false);
   const [formData, setFormData] = useState({
+    refresh:false,
     calories: [
         0, 0, 0, 0, 0, 0, 0
     ],
@@ -96,17 +97,17 @@ const SignUpForm = ({ setres }) => {
   };
 
   const handleNext = () => {
-    // if (!validateForm()) {
-    //   toast({
-    //     title: "Error",
-    //     description: "Please correct the highlighted errors",
-    //     status: "error",
-    //     duration: 5000,
-    //     isClosable: true,
-    //   });
-    //   return;
-    // }
-    // console.log(formData);
+    if (!validateForm()) {
+      toast({
+        title: "Error",
+        description: "Please correct the highlighted errors",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+    console.log(formData);
     setNext(true);
   };
 

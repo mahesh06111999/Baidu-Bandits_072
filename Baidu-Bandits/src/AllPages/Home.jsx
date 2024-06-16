@@ -8,19 +8,23 @@ import {
   Text,
   Divider,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import home from '../assets/home-1-svgrepo-com.svg';
-import calfit from '../assets/calfit.png';
+
 import logo from '../assets/logo.png';
+import { auth } from '../auth/firebase';
 
 const MotionFlex = motion(Flex);
 const MotionHeading = motion(Heading);
 const MotionButton = motion(Button);
 
 const Home = () => {
+
   return (
     <Box>
+      {
+      auth?.currentUser?.email && <Navigate replace to={"/dashboard"}/>
+      }
       <Flex
         as="nav"
         justify="space-between"

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import dashboard from '../assets/icons/dash.gif';
 import activity from '../assets/icons/AT.gif';
 import doc from '../assets/icons/ha.gif';
@@ -12,6 +12,7 @@ import { signOut } from 'firebase/auth';
 import home from '../assets/icons/home.gif';
 
 const Navbar = () => {
+  const [ref, setref] = useState(true);
   const location = useLocation();
 
   const signOff = async () => {
@@ -20,9 +21,8 @@ const Navbar = () => {
     } catch (error) {
       console.error(error);
     } finally {
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      setref(ref=>!ref)
+      console.log("signedOut");
     }
   };
 
@@ -37,7 +37,11 @@ const Navbar = () => {
   });
 
   return (
-    <div
+  <>
+  {
+      auth?.currentUser?.email===undefined && <Navigate replace to={"/"}/>
+    }
+      <div
       style={{
         position: 'sticky',
         top: 0,
@@ -155,6 +159,7 @@ const Navbar = () => {
         </button>
       </div>
     </div>
+    </>
   );
 };
 

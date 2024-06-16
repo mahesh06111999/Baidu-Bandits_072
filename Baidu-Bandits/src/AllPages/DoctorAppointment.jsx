@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import RightSideBox from '../Components/RightSideBox';
 import Navbar from '../Components/Navbar';
+import { auth } from '../auth/firebase';
 
 const DoctorAppointment = () => {
   const dispatch = useDispatch();
@@ -94,6 +95,9 @@ const DoctorAppointment = () => {
 
   return (
     <div style={{ display: 'flex' }}>
+      {
+      auth?.currentUser?.email===undefined && <Navigate replace to={"/"}/>
+      }
       <Navbar />
       <div
         style={{
