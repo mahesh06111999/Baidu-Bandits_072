@@ -55,5 +55,5 @@ npm run dev
 - [Mahesh S R](https://github.com/mahesh06111999)
 - [Sanju Kumari](https://github.com/sanjukumari-tech)
 - [Subhankar Banik](https://github.com/subhankarbanik)
-- []()
+- [Chaitanya Dakhale](https://github.com/Chaitanya-05)
 
