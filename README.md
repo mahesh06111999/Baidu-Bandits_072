@@ -6,9 +6,12 @@ The Health and Wellness Project is a comprehensive application designed to promo
 
 
 
-## Demo
+## Deployed Link
 
-Insert gif or link to demo
+https://be-1fit.netlify.app/
+
+
+https://baidu-bandits-072-git-main-sanjukumari-techs-projects.vercel.app/
 
 
 ## Features
@@ -17,6 +20,8 @@ Insert gif or link to demo
 
 - Doctor Appointment Booking : Book appointments with doctors directly through the application, with confirmation and reminder notifications.
 
+- Nutrition  : Receive personalized suggestions on how to improve their physical health based on user's goal data.
+
 - Mental Health Support : Receive personalized suggestions on how to improve your mental health based on your mood data.
 
 - Exercise Scheduling Planning : Create and customize your exercise schedule to fit your lifestyle and preferences.
@@ -24,12 +29,12 @@ Insert gif or link to demo
 
 ## Tech Stack
 
-**Client:** React, Redux, Chakra UI
+**Client:** Reactjs, Redux, Chakra UI
 
 **Server:** Firebase
 
 
-## How to use.
+## How to use
 
 To deploy this project run
 
@@ -47,7 +52,7 @@ npm run dev
 ````
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+<img src="../Baidu-Bandits_072/Baidu-Bandits/src/assets/desktopview.png">
 
 
 ## Authors
