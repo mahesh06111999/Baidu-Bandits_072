@@ -52,7 +52,7 @@ npm run dev
 ````
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+<img src="../Baidu-Bandits_072/Baidu-Bandits/src/assets/desktopview.png">
 
 
 ## Authors
