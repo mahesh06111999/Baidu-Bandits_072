@@ -29,7 +29,7 @@ Insert gif or link to demo
 **Server:** Firebase
 
 
-## Deployment
+## How to use.
 
 To deploy this project run
 
