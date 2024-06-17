@@ -17,13 +17,20 @@ import yoga from '../assets/yoga.png'
 import dumble from '../assets/dumble.png'
 import walk from '../assets/walk.png'
 import walkinggraph from '../assets/walkinggraph.png'
-import fitnesstimer from '../assets/fitnesstimer.png'
+import fitnesstimer from '../assets/fitnesstimer.png';
+import { BarGraph } from '../Components/BarGraphs';
 
 
 const Dashboard = () => {
  // user data fatch.................
  const [data, setdata] = useState();
  const [loading, setLoading] = useState(true);
+ const [averageCalories,setAverageCalories]=useState(0);
+ const [averageWalk,setAverageWalk] = useState(0);
+ const [score,setScore] = useState(0);
+ const [totalSteps,setTotalSteps]=useState(0);
+ const [exerciseProgress, setExerciseProgress] = useState(0);
+
  
  useEffect(() => {
    async function fetch(){      
@@ -34,6 +41,33 @@ const Dashboard = () => {
    const solved =raw.data()
    console.log(solved);
    setdata(solved)}
+  // for calories calculation
+  if (data?.calories && data.calories.length > 0) {
+    const totalCalories = data.calories.reduce((acc, val) => acc + val, 0);
+    const averageCalories = totalCalories / data.calories.length;
+    setAverageCalories(averageCalories.toFixed(0));
+  }
+  //  for walk calculation
+        if (data.steps && data.steps.length>0){
+          const totalwork = data.steps.reduce((curr,prev)=>parseFloat(curr)+parseFloat(prev,10),0)
+          const average1 = parseInt(totalwork/data.steps.length);
+          
+          setAverageWalk(average1)
+        }
+  //  for fitness score
+  //  if (data.steps && data.steps.length > 0) {
+  //   const totalSteps = data.steps.reduce((acc, steps) => acc + parseInt(steps, 10), 0);
+  //   setTotalSteps(totalSteps);
+  // }
+   const averageExerciseTime = data.exerciseTime.reduce((acc, time) => acc + time, 0) / data.exerciseTime.length;
+   const averageCaloriesBurned = data.calories.reduce((acc, calories) => acc + calories, 0) / data.calories.length;
+   const totalSteps = data.steps.reduce((acc, steps) => acc + parseInt(steps, 10), 0);
+   const fitnessScore = ((averageExerciseTime / 180) * 0.4) + ((averageCaloriesBurned / 7000) * 0.4) + ((totalSteps / 100000) * 0.2);
+   setScore(parseInt(fitnessScore*100));
+
+   // for reports 
+    
+   
    
  } catch (error) {
    console.log(error);
@@ -95,8 +129,8 @@ fetch()
                     <Heading as="h3" size="med" mt={2} >
                       Calories
                     </Heading>
-                    <Heading as="h1" size="lg" mt={10}>
-                        753
+                    <Heading as="h1" size="lg" mt={6}>
+                       {averageCalories}
                     </Heading>
                     <Text >
                         kcal
@@ -110,14 +144,14 @@ fetch()
          <Image src={image3}></Image> 
         </GridItem>
         <GridItem p={2} rounded="3xl" boxShadow="xl" >
-         <Grid templateColumns="1fr 1fr">
+         <Grid templateColumns="2fr 1fr">
             <GridItem>
                 <Box mt={4} border={0}  >
-                    <Heading as="h3" size="med" mt={2} >
+                    <Heading as="h3" size="sm" mt={2} >
                       Walk Rate
                     </Heading>
-                    <Heading as="h1" size="lg" mt={10}>
-                        1270
+                    <Heading as="h1" size="lg" mt={6}>
+                        {averageWalk}
                     </Heading>
                     <Text >
                         steps
@@ -125,7 +159,7 @@ fetch()
                   </Box>
             </GridItem>
             <GridItem>
-              <Image mt={0} src={walk}></Image>
+              <Image mt={8} src={walk}></Image>
             </GridItem>
          </Grid> 
          <Image src={walkinggraph}></Image> 
@@ -142,11 +176,11 @@ fetch()
                   Fitness
                 </Heading>
                 <Text mt={0} size="sm">
-                    Score
+                    score
                 </Text>
               </GridItem>
               <GridItem>
-                  <Heading mt={0}>60%</Heading>
+                  <Heading mt={0}>{score}%</Heading>
               </GridItem> 
           </Grid>
           
@@ -156,23 +190,32 @@ fetch()
       <Grid templateColumns="2fr 1fr" gap={6} pt={2} marginTop={2}>
       <GridItem  bgSize="cover" 
            bgPosition="center" p={2} rounded="3xl" boxShadow="xl" >
-          <Box mt={4} border={0} >
+          <Box className="fitness-activity" mt={2} border={0} >
             <Heading as="h3" size="med" mt={0} >
                Fitnesss Activity
             </Heading>
-            <Image src={bargraph}></Image>
-
+            {data?.exerciseTime && data?.calories && data?.steps ? (
+              <BarGraph data={{
+                days: ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'],
+                exerciseTime: data.exerciseTime,
+                calories: data.calories,
+                steps: data.steps
+              }} />
+            ) : (
+              <Text>No data available</Text>
+            )}
           </Box>
         </GridItem>
         <GridItem  p={2} rounded="3xl" boxShadow="2xl"  >
-        {/* bgImage={"https://hips.hearstapps.com/hmg-prod/images/runner-feet-running-on-road-closeup-on-shoe-royalty-free-image-918789438-1553785419.jpg"} bgSize="cover" 
-           bgPosition="center" */}
-           <Heading size={"md"}>Reports</Heading>
-            {/* <CircularProgress value={40} color='green.400' size='100px'>
-                <CircularProgressLabel>40%</CircularProgressLabel>
-            </CircularProgress> */}
+           <Heading size={"md"} textAlign={"center"}>Reports</Heading>
+           <Box display="flex" alignItems="center" justifyContent="center" marginTop={4}>
+            <CircularProgress value={40} color='green.400' size='200px'>
+                  <CircularProgressLabel>40%</CircularProgressLabel>
+              </CircularProgress>
+           </Box>
+            
           <Box mt={0} border={0} >
-            <Image src={report}></Image>
+            {/* <Image src={report}></Image> */}
           
             <Heading as="h1" fontSize="md" mt={2} textAlign="center">
                 Your Reports are not good
