@@ -1,47 +1,62 @@
 import React, { useState } from 'react';
 import {
-  Box, Button, Center, Flex, Input, Text, Heading, VStack,
-  useColorModeValue, useToast, FormControl, FormLabel, FormErrorMessage,
-  RadioGroup, Stack, Radio, Checkbox, Select
-} from "@chakra-ui/react";
+  Box,
+  Button,
+  Center,
+  Flex,
+  Input,
+  Text,
+  Heading,
+  VStack,
+  useColorModeValue,
+  useToast,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  RadioGroup,
+  Stack,
+  Radio,
+  Checkbox,
+  Select,
+} from '@chakra-ui/react';
 import { SignUp } from './Signup';
 
 const SignUpForm = ({ setres }) => {
   const [next, setNext] = useState(false);
   const [formData, setFormData] = useState({
     schedulearr: [],
-  doctorAppointments: [],
-  refresh:true,
-  delete:false,
+    doctorAppointments: [],
+    refresh: true,
+    delete: false,
 
-  weeklyData: {},
-  editMode: {},
+    weeklyData: {},
+    editMode: {},
 
-  loading: false,
-  data: null,
-  error: null,
-    refresh:false,
+    loading: false,
+    data: null,
+    error: null,
+    refresh: false,
     calories: [],
-    age: "",
+    age: '',
     steps: [],
-    goal: "",
-    gender: "",
+    goal: '',
+    gender: '',
     weight: '',
     privacyAccepted: null,
     tracker: {
-      thursday: {calories: null, steps: null, workedOut: null},
-      sunday: {calories: null, steps: null, workedOut: null},
-      saturday: {calories: null, steps: null, workedOut: null},
-      friday: {calories: null, steps: null, workedOut: null},
-      monday: {calories: null, steps: null, workedOut: null},
-      wednesday: {calories: null, steps: null, workedOut: null},
-      tuesday: {calories: null, steps: null, workedOut: null}
+      thursday: { calories: null, steps: null, workedOut: null },
+      sunday: { calories: null, steps: null, workedOut: null },
+      saturday: { calories: null, steps: null, workedOut: null },
+      friday: { calories: null, steps: null, workedOut: null },
+      monday: { calories: null, steps: null, workedOut: null },
+      wednesday: { calories: null, steps: null, workedOut: null },
+      tuesday: { calories: null, steps: null, workedOut: null },
     },
-    fullName: "",
+    fullName: '',
     appointment: null,
-    height: "",
+    height: '',
     exerciseTime: [],
-    termsAccepted: ''
+    termsAccepted: '',
   });
 
   const [formErrors, setFormErrors] = useState({
@@ -92,9 +107,9 @@ const SignUpForm = ({ setres }) => {
   const handleNext = () => {
     if (!validateForm()) {
       toast({
-        title: "Error",
-        description: "Please correct the highlighted errors",
-        status: "error",
+        title: 'Error',
+        description: 'Please correct the highlighted errors',
+        status: 'error',
         duration: 5000,
         isClosable: true,
       });
