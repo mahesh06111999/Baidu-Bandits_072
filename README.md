@@ -20,6 +20,8 @@ https://baidu-bandits-072-git-main-sanjukumari-techs-projects.vercel.app/
 
 - Doctor Appointment Booking : Book appointments with doctors directly through the application, with confirmation and reminder notifications.
 
+- Nutrition  : Receive personalized suggestions on how to improve their physical health based on user's goal data.
+
 - Mental Health Support : Receive personalized suggestions on how to improve your mental health based on your mood data.
 
 - Exercise Scheduling Planning : Create and customize your exercise schedule to fit your lifestyle and preferences.
@@ -27,7 +29,7 @@ https://baidu-bandits-072-git-main-sanjukumari-techs-projects.vercel.app/
 
 ## Tech Stack
 
-**Client:** React, Redux, Chakra UI
+**Client:** Reactjs, Redux, Chakra UI
 
 **Server:** Firebase
 
