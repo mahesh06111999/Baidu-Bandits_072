@@ -26,7 +26,7 @@ export const init = {
 export const reducer = (state = init, action) => {
   switch (action.type) {
     case FETCH:
-      return { ...state, ...action.payload };
+      return {...action.payload };
 
     case UPDATE:
       return {

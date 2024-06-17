@@ -9,9 +9,12 @@ import PersonalTraining from './PersonalTraining';
 import Home from './Home';
 import { Auth } from './Auth';
 import { AdminDashboard } from './admin/AdminDashboard';
-import { auth } from '../auth/firebase';
+import { auth, fetchData } from '../auth/firebase';
+import { useDispatch, useSelector } from 'react-redux';
 
 const AllRoutes = () => {
+
+
   return (
     <div >      
       <Routes>

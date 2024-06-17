@@ -21,7 +21,9 @@ export const db = getFirestore(app);
 export function fetchData(dispatch) {
   getDoc(doc(db, 'user', auth?.currentUser?.email))
     .then((res) => res.data())
-    .then((resp) => dispatch({ type: FETCH, payload: resp }))
+    .then((resp) =>{ console.log(resp);
+       dispatch({ type: FETCH, payload: resp })
+    })
     .catch((err) => console.log(err));
 }
 
