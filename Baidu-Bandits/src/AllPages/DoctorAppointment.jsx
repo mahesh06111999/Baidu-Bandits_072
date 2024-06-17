@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Auth } from './Auth';
-import { auth, db } from '../auth/firebase';
-import { getDoc, doc } from 'firebase/firestore';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { BOOKAPPOINTMENT } from '../redux/actionTypes';
 import {
   Radio,
   RadioGroup,
@@ -12,35 +11,11 @@ import {
 } from '@chakra-ui/react';
 import RightSideBox from '../Components/RightSideBox';
 import Navbar from '../Components/Navbar';
-import { Navigate } from 'react-router-dom';
+import { auth } from '../auth/firebase';
 
 const DoctorAppointment = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
   const toast = useToast();
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const userId = auth?.currentUser?.uid;
-      if (!userId) return;
-
-      try {
-        const docRef = doc(db, 'user', userId);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setData(docSnap.data());
-        } else {
-          console.log('No such document!');
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [auth?.currentUser?.uid]);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -54,7 +29,6 @@ const DoctorAppointment = () => {
   });
 
   const [bookedSlots, setBookedSlots] = useState({});
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -76,9 +50,7 @@ const DoctorAppointment = () => {
       [date]: [...(prevSlots[date] || []), time],
     }));
 
-    const appointmentData = JSON.parse(localStorage.getItem('appData')) || [];
-    appointmentData.push(formData);
-    localStorage.setItem('appData', JSON.stringify(appointmentData));
+    dispatch({ type: BOOKAPPOINTMENT, payload: formData });
 
     toast({
       title: 'Appointment booked.',
@@ -121,16 +93,11 @@ const DoctorAppointment = () => {
     ? times.filter((time) => !(bookedSlots[formData.date] || []).includes(time))
     : times;
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (!auth?.currentUser?.email) {
-  //   return <Navigate replace to="/" />;
-  // }
-
   return (
     <div style={{ display: 'flex' }}>
+      {
+      auth?.currentUser?.email===undefined && <Navigate replace to={"/"}/>
+      }
       <Navbar />
       <div
         style={{

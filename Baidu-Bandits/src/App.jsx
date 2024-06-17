@@ -1,12 +1,25 @@
+import { useEffect } from 'react';
 import AllRoutes from './AllPages/AllRoutes';
 import './App.css';
-import Navbar from './Components/Navbar';
-import RightSideBox from './Components/RightSideBox';
+import { useDispatch, useSelector } from 'react-redux';
+import { auth, fetchData, updateData } from './auth/firebase';
+
 function App() {
-  return (
+  const dispatch =useDispatch()
+  const state = useSelector((state) => state);
+  useEffect(() => {
+    if (auth?.currentUser?.email) {
+      console.log('working');
       
-      <AllRoutes />
-  );
+      updateData(state);
+    }
+  }, [state]);
+
+  
+
+  
+
+  return <AllRoutes />;
 }
 
 export default App;

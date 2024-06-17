@@ -1,86 +1,57 @@
-import { useState, useEffect } from 'react';
+// import React from 'react';
 import {
-  Input,
-  Select,
-  RadioGroup,
-  Radio,
-  Button,
-  Stack,
-  Box,
-  Heading,
-  VStack,
-  useColorModeValue,
-  SimpleGrid,
-  Icon,
-  Text,
-  HStack,
-  Image,
-  Flex,
+  Input, Select, RadioGroup, Radio, Button, Stack, Box, VStack, useColorModeValue,
+  SimpleGrid, Icon, Text, HStack, Image, Flex,
 } from '@chakra-ui/react';
 import { FaRunning, FaBurn, FaWalking, FaClock, FaEdit, FaSave, FaCalendarAlt, FaClock as FaTime } from 'react-icons/fa';
+import { useSelector, useDispatch } from 'react-redux';
+import { setWeeklyData, setEditMode } from '../redux/actionTypes';
 
 const DynamicForm = () => {
   const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  // State for form data for each day
-  const [weeklyData, setWeeklyData] = useState({});
-  const [editMode, setEditMode] = useState({});
-
-  useEffect(() => {
-    // Load form data from local storage
-    const storedData = JSON.parse(localStorage.getItem('weeklyData'));
-    if (storedData) {
-      setWeeklyData(storedData);
-    }
-  }, []);
+  const weeklyData = useSelector((state) => state.weeklyData);
+  const editMode = useSelector((state) => state.editMode);
+  const dispatch = useDispatch();
 
   const handleChange = (e, day) => {
     const { name, value } = e.target;
-    setWeeklyData({
-      ...weeklyData,
-      [day]: {
-        ...weeklyData[day],
-        [name]: value,
-      },
-    });
+    dispatch(setWeeklyData(day, { ...weeklyData[day], [name]: value }));
   };
+  // console.log(data)
 
   const handleRadioChange = (value, name, day) => {
-    setWeeklyData({
-      ...weeklyData,
-      [day]: {
-        ...weeklyData[day],
-        [name]: value,
-      },
-    });
+    dispatch(setWeeklyData(day, { ...weeklyData[day], [name]: value }));
   };
 
   const handleSave = (day) => {
     const currentDate = new Date();
     const updatedData = {
-      ...weeklyData,
-      [day]: {
-        ...weeklyData[day],
-        lastUpdated: currentDate.toLocaleDateString(),
-        lastUpdatedTime: currentDate.toLocaleTimeString(),
-      },
+      ...weeklyData[day],
+      lastUpdated: currentDate.toLocaleDateString(),
+      lastUpdatedTime: currentDate.toLocaleTimeString(),
     };
-    setWeeklyData(updatedData);
-    setEditMode({
-      ...editMode,
-      [day]: false,
-    });
-    localStorage.setItem('weeklyData', JSON.stringify(updatedData));
+    dispatch(setWeeklyData(day, updatedData));
+    dispatch(setEditMode(day, false));
   };
 
   const formBgColor = useColorModeValue('gray.50', 'gray.700');
   const formBorderColor = useColorModeValue('gray.200', 'gray.600');
 
-  return (
-    <Box maxW="xll" mx="auto" mt={10} p={6} bg={formBgColor} borderRadius="md" boxShadow="lg">
-      <Heading mb={6} textAlign="center" color="white" bgColor="#11a5bc" maxH="100px">Weekly Workout Tracker</Heading>
+  const dayColors = {
+    Monday: 'red.100',
+    Tuesday: 'orange.100',
+    Wednesday: 'yellow.100',
+    Thursday: 'green.100',
+    Friday: 'blue.100',
+    Saturday: 'purple.100',
+  };
 
-      <Box mb={8} textAlign="center">
+  return (
+    <Box maxW="xll" mx="auto" mt={1} p={6} bg={formBgColor} borderRadius="md" boxShadow="lg">
+      <h1 className='activity'>Weekly Workout Tracker</h1>
+
+      <Box mb={8} textAlign="center" justifyItems="center">
         <Flex>
           <Image
             src="https://img.freepik.com/free-vector/sport-fitness-tracker-abstract-concept-vector-illustration-activity-band-health-monitor-wrist-worn-device-application-running-cycling-every-day-training-abstract-metaphor_335657-1454.jpg?t=st=1718180351~exp=1718183951~hmac=48849305ff35333c08fb67262664b70e984691795e8c383900c5b37e1e2d9b9e&w=740"
@@ -102,11 +73,12 @@ const DynamicForm = () => {
 
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={8}>
         {daysOfWeek.map((day) => (
-          <Box key={day} p={5} shadow="md" borderWidth="1px" borderRadius="md" position="relative">
-            <Heading fontSize="xl" mb={4} color='tomato'>{day}</Heading>
+          <Box key={day} p={5} shadow="md" borderWidth="1px" borderRadius="md" position="relative" bg={dayColors[day]}>
+            <h1 className='board-card-week'>{day}</h1>
             <VStack align="start">
               <HStack>
-                <Icon as={FaRunning} />
+                <Icon as={FaRunning} color="gray" />
+                <h1>Do you workout?</h1>
                 {editMode[day] ? (
                   <RadioGroup
                     name="workout"
@@ -125,10 +97,11 @@ const DynamicForm = () => {
               {weeklyData[day]?.workout === 'yes' && (
                 <>
                   <HStack>
-                    <Icon as={FaBurn} />
+                    <Icon as={FaBurn} color="gray" />
                     {editMode[day] ? (
                       <Input
                         type="number"
+                        placeholder='Calories Burnt'
                         name="caloriesBurned"
                         value={weeklyData[day]?.caloriesBurned || ''}
                         onChange={(e) => handleChange(e, day)}
@@ -141,7 +114,7 @@ const DynamicForm = () => {
                     )}
                   </HStack>
                   <HStack>
-                    <Icon as={FaWalking} />
+                    <Icon as={FaWalking} color="gray" />
                     {editMode[day] ? (
                       <Select
                         name="stepsTaken"
@@ -151,19 +124,18 @@ const DynamicForm = () => {
                         borderColor={formBorderColor}
                         _placeholder={{ color: 'gray.500' }}
                       >
-                        <option value="">Select</option>
-                        <option value="50 steps-100 steps">50 steps-100 steps</option>
-                        <option value="100 steps -200 steps">100 steps -200 steps</option>
-                        <option value="10 k -20 k">10 k -20 k</option>
-                        <option value="20 k - 35 k">20 k - 35 k</option>
-                        <option value="35 k ">35 k </option>
+                        <option value="0-5k">0-5k</option>
+                        <option value="5k-10k">5k-10k</option>
+                        <option value="10k-15k">10k-15k</option>
+                        <option value="15k-20k">15k-20k</option>
+                        <option value="20k+">20k+</option>
                       </Select>
                     ) : (
                       <Text>Steps Taken: {weeklyData[day]?.stepsTaken || 'N/A'}</Text>
                     )}
                   </HStack>
                   <HStack>
-                    <Icon as={FaClock} />
+                    <Icon as={FaClock} color="gray" />
                     {editMode[day] ? (
                       <Select
                         name="workoutDuration"
@@ -173,37 +145,35 @@ const DynamicForm = () => {
                         borderColor={formBorderColor}
                         _placeholder={{ color: 'gray.500' }}
                       >
-                        <option value="">Select</option>
+                        <option value="">Select duration</option>
                         <option value="0-30">0-30 mins</option>
                         <option value="30-60">30-60 mins</option>
                         <option value="60-90">60-90 mins</option>
                         <option value="90+">90+ mins</option>
                       </Select>
                     ) : (
-                      <Text>Duration: {weeklyData[day]?.workoutDuration || ''}</Text>
+                      <Text>Duration: {weeklyData[day]?.workoutDuration || 'N/A'}</Text>
                     )}
                   </HStack>
                 </>
               )}
-
               {weeklyData[day]?.lastUpdated && weeklyData[day]?.lastUpdatedTime && (
                 <VStack align="start" position="absolute" bottom="10px" right="10px">
                   <HStack>
-                    <Icon as={FaCalendarAlt} />
+                    <Icon as={FaCalendarAlt} color="rgb(149, 149, 223)" />
                     <Text fontSize="10px">{weeklyData[day]?.lastUpdated}</Text>
                   </HStack>
                   <HStack>
-                    <Icon as={FaTime} />
+                    <Icon as={FaTime} color="rgb(149, 149, 223)" />
                     <Text fontSize="10px">{weeklyData[day]?.lastUpdatedTime}</Text>
                   </HStack>
                 </VStack>
               )}
-
               <HStack>
                 <Button
                   size="sm"
                   leftIcon={editMode[day] ? <FaSave /> : <FaEdit />}
-                  onClick={() => editMode[day] ? handleSave(day) : setEditMode({ ...editMode, [day]: true })}
+                  onClick={() => editMode[day] ? handleSave(day) : dispatch(setEditMode(day, true))}
                 >
                   {editMode[day] ? 'Save' : 'Edit'}
                 </Button>

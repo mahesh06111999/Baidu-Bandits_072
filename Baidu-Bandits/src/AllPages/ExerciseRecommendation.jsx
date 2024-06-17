@@ -4,29 +4,8 @@ import { motion } from 'framer-motion';
 
 const ExerciseRecommendation = ({ formData }) => {
 
-  // user data fatch.................
-  const [data, setdata] = useState();
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    async function fetch(){      
-    const userId=auth?.currentUser?.uid
-  try {
-    if(auth?.currentUser?.uid){
-    const raw=  await getDoc(doc(db, "user",userId ))
-    const solved =raw.data()
-    console.log(solved);
-    setdata(solved)}
-    
-  } catch (error) {
-    console.log(error);
-  }finally{
-    setLoading(false);
-    
-  }
-}  
-fetch()   
-  }, []);
+
+
   // Dummy exercise recommendations
   const recommendations = [
     "Start with 30 minutes of brisk walking or jogging most days of the week.",
@@ -37,7 +16,11 @@ fetch()
   ];
 
   return (
+
     <Box textAlign="center" py={10}>
+      {
+      auth?.currentUser?.email===undefined && <Navigate replace to={"/"}/>
+    }
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
