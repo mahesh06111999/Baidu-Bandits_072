@@ -53,7 +53,7 @@ npm run dev
 ## Authors
 
 - [Mahesh S R](https://github.com/mahesh06111999)
-- []()
+- [Sanju Kumari](https://github.com/sanjukumari-tech)
 - []()
 - []()
 
