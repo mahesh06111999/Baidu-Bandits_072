@@ -29,36 +29,5 @@ export function updateData(data) {
   updateDoc(doc(db, 'user', auth.currentUser.email), data);
 }
 
-// export const fetchUserData = async () => {
-//   const userId = auth?.currentUser?.uid;
-//   if (!userId) return;
 
-//   try {
-//     const docRef = doc(db, 'user', userId);
-//     const docSnap = await getDoc(docRef);
-//     if (docSnap.exists()) {
 
-//     } else {
-//       console.log('No such document!');
-//     }
-//   } catch (error) {
-//     console.error('Error fetching user data:', error);
-//   }
-// }
-
-// firebase login
-// firebase init
-// firebase deploy
-
-// Add a new document in collection "cities"
-// const userId=auth?.curhffhrentUser?.email
-// await setDoc(doc(db, "user","userId" ), {
-
-// calories:[23,45,68,4,7,343,756,345,45,45,45,45,445,636,]
-
-// });
-
-// const userId=auth?.currentUser?.uid
-// console.log(userId);
-// // const data=  await getDoc(doc(db, "user",userId ))
-// // console.log(data);

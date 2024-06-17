@@ -4,7 +4,8 @@ import { MentalWellnessComp } from '../pageComponents/MentalWellnessComp';
 
 const MentalWellness = () => {
   return(    
-      <>        
+      <>  
+            
       <div style={{ display: 'flex' }}>
       <Navbar />
       <div style={{width:'63%'}}>

@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { ChakraProvider, Box, Heading, Text, Image, Button, Grid, GridItem } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { auth } from "../auth/firebase";
@@ -13,6 +14,22 @@ import fitnesstimer from '../assets/fitnesstimer.png';
 import image3 from '../assets/image3.png';
 import bargraph from '../assets/bargraph.png';
 import report from '../assets/report.png';
+=======
+import { ChakraProvider, Box, Heading, Text, Image, Button, Grid, GridItem,CircularProgress,CircularProgressLabel } from '@chakra-ui/react';
+import image3 from '../assets/image3.png';
+import bargraph from '../assets/bargraph.png';
+import report from '../assets/report.png'
+import {auth, fetchData} from "../auth/firebase";
+import Navbar from '../Components/Navbar';
+import RightSideBox from '../Components/RightSideBox';
+import { Navigate } from 'react-router';
+import yoga from '../assets/yoga.png'
+import dumble from '../assets/dumble.png'
+import walk from '../assets/walk.png'
+import walkinggraph from '../assets/walkinggraph.png'
+import fitnesstimer from '../assets/fitnesstimer.png'
+import { useDispatch, useSelector } from 'react-redux';
+>>>>>>> 02923e85bdaecddb372e5d8005fbc39feda24353
 
 const Dashboard = () => {
   const state = useSelector(state => state);
@@ -29,7 +46,28 @@ const Dashboard = () => {
     return acc + steps;
   }, 0);
 
+<<<<<<< HEAD
   return (
+=======
+const Dashboard = () => { 
+  const dispatch = useDispatch();
+  const state = useSelector(state=>state) 
+
+    
+  if(auth?.currentUser?.email && state.refresh){
+    console.log("fetch working.....");
+    fetchData(dispatch)
+  }
+  return (
+    <>
+    {
+      auth?.currentUser?.email===undefined && <Navigate replace to={"/"}/>
+    }
+    {
+      (auth?.currentUser?.email && state.admin) && <Navigate replace to={"/admindashboard"}/>
+    }
+
+>>>>>>> 02923e85bdaecddb372e5d8005fbc39feda24353
     <div style={{ display: 'flex' }}>
       <Navbar />
       <ChakraProvider>

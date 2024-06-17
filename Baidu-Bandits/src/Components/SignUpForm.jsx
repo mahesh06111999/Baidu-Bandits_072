@@ -9,6 +9,7 @@ import { SignUp } from './Signup';
 const SignUpForm = ({ setres }) => {
   const [next, setNext] = useState(false);
   const [formData, setFormData] = useState({
+    refresh:false,
     calories: [0, 0, 0, 0, 0, 0, 0],
     age: "",
     steps: [0, 0, 0, 0, 0, 0, 0],
@@ -88,7 +89,7 @@ const SignUpForm = ({ setres }) => {
       });
       return;
     }
-    // console.log(formData);
+    console.log(formData);
     setNext(true);
   };
 

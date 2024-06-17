@@ -13,6 +13,7 @@ import {
 export const init = {
   schedulearr: [],
   doctorAppointments: [],
+  refresh:true,
 
   weeklyData: {},
   editMode: {},
@@ -25,7 +26,7 @@ export const init = {
 export const reducer = (state = init, action) => {
   switch (action.type) {
     case FETCH:
-      return { ...state, schedulearr: action.payload };
+      return { ...state, ...action.payload };
 
     case UPDATE:
       return {

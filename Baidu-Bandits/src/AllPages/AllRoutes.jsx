@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import ActivityTracker from './ActivityTracker';
 import DoctorAppointment from './DoctorAppointment';
@@ -8,10 +8,12 @@ import Nutrition from './Nutrition';
 import PersonalTraining from './PersonalTraining';
 import Home from './Home';
 import { Auth } from './Auth';
+import { AdminDashboard } from './admin/AdminDashboard';
+import { auth } from '../auth/firebase';
 
 const AllRoutes = () => {
   return (
-    <div >
+    <div >      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth />} />
@@ -21,6 +23,7 @@ const AllRoutes = () => {
         <Route path="/mentalwellness" element={<MentalWellness />} />
         <Route path="/nutrition" element={<Nutrition />} />
         <Route path="/personaltraining" element={<PersonalTraining />} />
+        <Route path="/admindashboard" element={<AdminDashboard />} />
       </Routes>
     </div>
   );
