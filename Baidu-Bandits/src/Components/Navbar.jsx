@@ -1,5 +1,10 @@
+<<<<<<< HEAD
+// import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+=======
 import React, { useState } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
+>>>>>>> 02923e85bdaecddb372e5d8005fbc39feda24353
 import dashboard from '../assets/icons/dash.gif';
 import activity from '../assets/icons/AT.gif';
 import doc from '../assets/icons/ha.gif';
@@ -52,6 +57,7 @@ const Navbar = () => {
         height: '100vh',
         background: '#fafafa',
         padding: '5px',
+        overflowY: 'auto',  // Enable scrollbar
       }}
     >
       <div
@@ -108,10 +114,6 @@ const Navbar = () => {
         <Link to="/doctorappointment" style={{ textDecoration: 'none' }}>
           <div style={getLinkStyle('/doctorappointment')}>
             <img src={doc} alt="" width="35px" />
-            <img
-              src="https://iconscout.com/lottie-animation/doctor-appointment-6188512"
-              alt=""
-            />
             Doctor Appointment
           </div>
         </Link>

@@ -9,6 +9,7 @@ import { COMPLETE, DELETEAPPOINTMENT } from '../redux/actionTypes';
 const RightSideBox = () => {
   const dispatch = useDispatch();
   const userobj = useSelector((state) => state);
+  const weeklyData = useSelector((state) => state.weeklyData);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -17,7 +18,6 @@ const RightSideBox = () => {
 
     return () => clearInterval(interval);
   }, []);
- 
 
   const checkExpiredAppointments = () => {
     const now = new Date();
@@ -42,6 +42,7 @@ const RightSideBox = () => {
       });
     }
   };
+
   const handleCancelAppointment = (id) => {
     dispatch({ type: DELETEAPPOINTMENT, payload: id });
   };
@@ -49,7 +50,22 @@ const RightSideBox = () => {
   const handleComplete = (id) => {
     dispatch({ type: COMPLETE, payload: id });
   };
- 
+
+  const today = new Date().toLocaleDateString();
+
+  const todayActivity = Object.keys(weeklyData).map((day) => {
+    const data = weeklyData[day];
+    return (
+      data.lastUpdated === today && (
+        <div key={day} style={{ marginBottom: '10px' }}>
+          <p><strong>{day}</strong></p>
+          <p>Steps Taken: {data.stepsTaken || 'N/A'}</p>
+          <p>Workout Done: {data.workout || 'N/A'}</p>
+          <p>Duration: {data.workoutDuration || 'N/A'}</p>
+        </div>
+      )
+    );
+  });
 
   return (
     <div
@@ -61,6 +77,7 @@ const RightSideBox = () => {
         fontFamily: 'sans-serif',
         padding: '0px 10px',
         height: '100vh',
+        overflowY: 'auto',  // Enable scrollbar
       }}
     >
       <div
@@ -144,7 +161,6 @@ const RightSideBox = () => {
         >
           My Schedule
         </p>
-
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           {userobj.schedulearr.length > 0 &&
             userobj.schedulearr.map((item, index) => (
@@ -195,6 +211,35 @@ const RightSideBox = () => {
             ))}
         </div>
       </div>
+      {/* Today's Activity */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '88%',
+          background: 'white',
+          padding: '15px',
+          borderRadius: '10px',
+          marginTop: '10px',
+          margin: '6%',
+          boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+        }}
+      >
+        <p
+          style={{
+            fontSize: '20px',
+            fontWeight: '600',
+            color: '#11a5bc',
+            margin: '10px 0px',
+            textAlign: 'center',
+            marginTop: '25px',
+          }}
+        >
+          Today's Activity
+        </p>
+        {todayActivity}
+      </div>
+      {/* Upcoming Appointments */}
       <p
         style={{
           fontSize: '20px',
@@ -207,7 +252,6 @@ const RightSideBox = () => {
       >
         Upcoming Appointments
       </p>
-
       {userobj.doctorAppointments.length > 0 ? (
         userobj.doctorAppointments.map((item, index) => (
           <div

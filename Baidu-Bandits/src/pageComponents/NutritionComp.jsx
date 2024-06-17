@@ -5,7 +5,7 @@ import CustomSkeleton from "../Components/Skeleton";
 import { Box, Heading, VStack, Text, SimpleGrid, Image, Button, Flex } from '@chakra-ui/react';
 import { motion } from "framer-motion";
 import { nutritionSuggestions } from "../Components/dietCards";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 
@@ -62,14 +62,14 @@ const UserProfile = ({ data, handleCalculateBMI }) => (
 );
 
 const NutritioniComp = () => {
-  // const [data, setData] = useState(null);
+ 
   const [loading, setLoading] = useState(false);
   const [bmi, setBmi] = useState(null);
   const [bmiCategory, setBmiCategory] = useState(null);
-  
-  const data = useSelector(state=>state)
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state);
   console.log(data);
-  
+
 
   // useEffect(() => {
   //   async function fetch() {

@@ -7,6 +7,7 @@ import {
   DELETEAPPOINTMENT,
   SET_WEEKLY_DATA,
   SET_EDIT_MODE,
+
 } from './actionTypes';
 
 export const init = {
@@ -16,6 +17,10 @@ export const init = {
 
   weeklyData: {},
   editMode: {},
+
+  loading: false,
+  data: null,
+  error: null
 };
 
 export const reducer = (state = init, action) => {
@@ -75,6 +80,8 @@ export const reducer = (state = init, action) => {
             [action.payload.day]: action.payload.mode,
           },
         };  
+
+      
 
     default:
       return state;
