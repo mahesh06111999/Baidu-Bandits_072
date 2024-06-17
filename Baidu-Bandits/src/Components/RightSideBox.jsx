@@ -51,21 +51,21 @@ const RightSideBox = () => {
     dispatch({ type: COMPLETE, payload: id });
   };
 
-  const today = new Date().toLocaleDateString();
+  // const today = new Date().toLocaleDateString();
 
-  const todayActivity = Object.keys(weeklyData).map((day) => {
-    const data = weeklyData[day];
-    return (
-      data.lastUpdated === today && (
-        <div key={day} style={{ marginBottom: '10px' }}>
-          <p><strong>{day}</strong></p>
-          <p>Steps Taken: {data.stepsTaken || 'N/A'}</p>
-          <p>Workout Done: {data.workout || 'N/A'}</p>
-          <p>Duration: {data.workoutDuration || 'N/A'}</p>
-        </div>
-      )
-    );
-  });
+  // const todayActivity = Object.keys(weeklyData).map((day) => {
+  //   const data = weeklyData[day];
+  //   return (
+  //     data.lastUpdated === today && (
+  //       <div key={day} style={{ marginBottom: '10px' }}>
+  //         <p><strong>{day}</strong></p>
+  //         <p>Steps Taken: {data.stepsTaken || 'N/A'}</p>
+  //         <p>Workout Done: {data.workout || 'N/A'}</p>
+  //         <p>Duration: {data.workoutDuration || 'N/A'}</p>
+  //       </div>
+  //     )
+  //   );
+  // });
 
   return (
     <div
@@ -162,8 +162,8 @@ const RightSideBox = () => {
           My Schedule
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          {userobj.schedulearr.length > 0 &&
-            userobj.schedulearr.map((item, index) => (
+          {userobj?.schedulearr?.length > 0 &&
+            userobj?.schedulearr?.map((item, index) => (
               <div
                 key={index}
                 style={{
@@ -212,7 +212,7 @@ const RightSideBox = () => {
         </div>
       </div>
       {/* Today's Activity */}
-      <div
+      {/* <div
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -238,7 +238,7 @@ const RightSideBox = () => {
           Today's Activity
         </p>
         {todayActivity}
-      </div>
+      </div> */}
       {/* Upcoming Appointments */}
       <p
         style={{
@@ -252,8 +252,8 @@ const RightSideBox = () => {
       >
         Upcoming Appointments
       </p>
-      {userobj.doctorAppointments.length > 0 ? (
-        userobj.doctorAppointments.map((item, index) => (
+      {userobj?.doctorAppointments?.length > 0 ? (
+        userobj?.doctorAppointments?.map((item, index) => (
           <div
             key={index}
             style={{
@@ -295,4 +295,4 @@ const RightSideBox = () => {
   );
 };
 
-export default RightSideBox;
+export default React.memo(RightSideBox);
