@@ -6,9 +6,9 @@ The Health and Wellness Project is a comprehensive application designed to promo
 
 
 
-## Demo
+## Deployed Link
 
-Insert gif or link to demo
+https://be-1fit.netlify.app/
 
 
 ## Features
@@ -29,7 +29,7 @@ Insert gif or link to demo
 **Server:** Firebase
 
 
-## How to use.
+## How to use
 
 To deploy this project run
 
