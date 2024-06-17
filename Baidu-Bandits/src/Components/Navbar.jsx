@@ -10,6 +10,7 @@ import logout from '../assets/logout-svgrepo-com.svg';
 import { auth } from '../auth/firebase';
 import { signOut } from 'firebase/auth';
 import home from '../assets/icons/home.gif';
+import logo from '../assets/logo.jpg'
 
 const Navbar = () => {
   const [ref, setref] = useState(true);
@@ -74,26 +75,22 @@ const Navbar = () => {
         >
           <div
             style={{
+              width:'100%',
               display: 'flex',
               fontSize: '30px',
               alignItems: 'center',
+              justifyContent:'center',
               gap: '15px',
             }}
           >
             <img
-              src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/a5d03133386945.56a96ee0bb381.png"
+              src={logo}
               alt=""
-              width="50px"
+              width="100px"
             />
-            <span style={{ color: '#64748b' }}>Be Fit</span>
           </div>
         </div>
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <div style={getLinkStyle('/')}>
-            <img src={home} alt="" width="35px" />
-            Home
-          </div>
-        </Link>
+        
         <Link to="/dashboard" style={{ textDecoration: 'none' }}>
           <div style={getLinkStyle('/dashboard')}>
             <img src={dashboard} alt="" width="35px" />

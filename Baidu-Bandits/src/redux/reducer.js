@@ -7,6 +7,7 @@ import {
   DELETEAPPOINTMENT,
   SET_WEEKLY_DATA,
   SET_EDIT_MODE,
+  DAILY,
 
 } from './actionTypes';
 
@@ -35,11 +36,21 @@ export const reducer = (state = init, action) => {
           item.id === action.payload.id ? action.payload : item
         ),
       };
+      case DAILY:
+        
+        return {
+          ...state,
+          calories:[...state.calories,+action.payload.caloriesBurned],
+          steps:[...state.steps, +action.payload.stepsTaken],
+          exerciseTime:[...state.exerciseTime, +action.payload.workoutDuration]
+
+        };
 
     case ADDTOSCHEDULE:
       return {
         ...state,
         schedulearr: [...state.schedulearr, action.payload],
+        
       };
 
     case COMPLETE:

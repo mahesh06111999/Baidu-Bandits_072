@@ -52,7 +52,6 @@ const RightSideBox = () => {
   };
 
   // const today = new Date().toLocaleDateString();
-
   // const todayActivity = Object.keys(weeklyData).map((day) => {
   //   const data = weeklyData[day];
   //   return (
@@ -77,7 +76,7 @@ const RightSideBox = () => {
         fontFamily: 'sans-serif',
         padding: '0px 10px',
         height: '100vh',
-        overflowY: 'auto',  // Enable scrollbar
+        overflowY: 'auto',
       }}
     >
       <div

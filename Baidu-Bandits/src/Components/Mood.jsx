@@ -161,8 +161,8 @@ export const Mood = () => {
   return (
     <div className="mood">
       <FadeMessage>
-        <div>
-          <h1>Mood Inhancer</h1>
+        <div style={{color:"white"}}>
+          <h1>Mood Enhancer</h1>
           <p>
             Bad mood is not just temporary, It could impact your our physical
             and mental health permanantly. That's why we are here to help you improve you mood.

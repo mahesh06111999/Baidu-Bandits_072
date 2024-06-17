@@ -10,7 +10,7 @@ const AdminNavbar = () => {
     } catch (error) {
       console.error(error);
     } finally {
-    
+      window.location.reload();
       console.log("signedOut");
     }
   };

@@ -11,10 +11,12 @@ import dumble from '../assets/dumble.png';
 import walk from '../assets/walk.png';
 import walkinggraph from '../assets/walkinggraph.png';
 import fitnesstimer from '../assets/fitnesstimer.png';
+import image3 from '../assets/image3.png'
 
 const Dashboard = () => {
   const dispatch =useDispatch();
   const state = useSelector(state => state);
+  console.log(state);
 
   const averageCalories = state.calories?.length ? (state.calories.reduce((acc, val) => acc + val, 0) / state.calories.length).toFixed(0) : 0;
   const averageWalk = state.steps?.length ? (state.steps.reduce((acc, val) => acc + parseInt(val, 10), 0) / state.steps.length).toFixed(0) : 0;
@@ -65,7 +67,8 @@ const Dashboard = () => {
             </Grid>
           </Box>
           {/* second box */}
-          <Box bg='#F8F8F8' w='100%' p={4} color='bold'>
+    
+          <Box bg='#FFFFFF' w='100%' p={4} color='bold'>
             <Grid templateColumns="1fr 1fr 2fr" gap={6}>
               <GridItem p={2} rounded="3xl" boxShadow="xl">
                 <Grid templateColumns="1fr 1fr">
@@ -86,7 +89,7 @@ const Dashboard = () => {
                     <Image mt={4} src={dumble} alt="Dumble" />
                   </GridItem>
                 </Grid>
-                <Image src={walkinggraph} alt="Graph" />
+                <Image src={image3} alt="Graph" />
               </GridItem>
               <GridItem p={2} rounded="3xl" boxShadow="xl">
                 <Grid templateColumns="2fr 1fr">

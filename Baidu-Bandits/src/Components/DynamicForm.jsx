@@ -5,7 +5,7 @@ import {
 } from '@chakra-ui/react';
 import { FaRunning, FaBurn, FaWalking, FaClock, FaEdit, FaSave, FaCalendarAlt, FaClock as FaTime } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
-import { setWeeklyData, setEditMode } from '../redux/actionTypes';
+import { setWeeklyData, setEditMode, DAILY } from '../redux/actionTypes';
 
 const DynamicForm = () => {
   const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -18,7 +18,7 @@ const DynamicForm = () => {
     const { name, value } = e.target;
     dispatch(setWeeklyData(day, { ...weeklyData[day], [name]: value }));
   };
-  // console.log(data)
+ console.log(weeklyData)
 
   const handleRadioChange = (value, name, day) => {
     dispatch(setWeeklyData(day, { ...weeklyData[day], [name]: value }));
@@ -31,6 +31,8 @@ const DynamicForm = () => {
       lastUpdated: currentDate.toLocaleDateString(),
       lastUpdatedTime: currentDate.toLocaleTimeString(),
     };
+    dispatch({type:DAILY,payload:weeklyData[day]});
+    console.log(weeklyData[day]);
     dispatch(setWeeklyData(day, updatedData));
     dispatch(setEditMode(day, false));
   };
@@ -44,7 +46,7 @@ const DynamicForm = () => {
     Wednesday: 'yellow.100',
     Thursday: 'green.100',
     Friday: 'blue.100',
-    Saturday: 'purple.100',
+    Saturday: 'purple.100'
   };
 
   return (
@@ -78,7 +80,7 @@ const DynamicForm = () => {
             <VStack align="start">
               <HStack>
                 <Icon as={FaRunning} color="gray" />
-                <h1>Do you workout?</h1>
+                <h1>Did you workout?</h1>
                 {editMode[day] ? (
                   <RadioGroup
                     name="workout"
@@ -116,20 +118,31 @@ const DynamicForm = () => {
                   <HStack>
                     <Icon as={FaWalking} color="gray" />
                     {editMode[day] ? (
-                      <Select
-                        name="stepsTaken"
-                        value={weeklyData[day]?.stepsTaken || ''}
-                        onChange={(e) => handleChange(e, day)}
-                        bg="white"
-                        borderColor={formBorderColor}
-                        _placeholder={{ color: 'gray.500' }}
-                      >
-                        <option value="0-5k">0-5k</option>
-                        <option value="5k-10k">5k-10k</option>
-                        <option value="10k-15k">10k-15k</option>
-                        <option value="15k-20k">15k-20k</option>
-                        <option value="20k+">20k+</option>
-                      </Select>
+
+<Input
+type="number"
+placeholder='Enter Steps'
+name="stepsTaken"
+value={weeklyData[day]?.stepsTaken || ''}
+onChange={(e) => handleChange(e, day)}
+bg="white"
+borderColor={formBorderColor}
+_placeholder={{ color: 'gray.500' }}
+/>
+                      // <Select
+                      //   name="stepsTaken"
+                      //   value={weeklyData[day]?.stepsTaken || ''}
+                      //   onChange={(e) => handleChange(e, day)}
+                      //   bg="white"
+                      //   borderColor={formBorderColor}
+                      //   _placeholder={{ color: 'gray.500' }}
+                      // >
+                      //   <option value="2500">0-5k</option>
+                      //   <option value="7500">5k-10k</option>
+                      //   <option value="12500">10k-15k</option>
+                      //   <option value="13554">15k-20k</option>
+                      //   <option value="22222">20k+</option>
+                      // </Select>
                     ) : (
                       <Text>Steps Taken: {weeklyData[day]?.stepsTaken || 'N/A'}</Text>
                     )}
@@ -137,20 +150,30 @@ const DynamicForm = () => {
                   <HStack>
                     <Icon as={FaClock} color="gray" />
                     {editMode[day] ? (
-                      <Select
-                        name="workoutDuration"
-                        value={weeklyData[day]?.workoutDuration || ''}
-                        onChange={(e) => handleChange(e, day)}
-                        bg="white"
-                        borderColor={formBorderColor}
-                        _placeholder={{ color: 'gray.500' }}
-                      >
-                        <option value="">Select duration</option>
-                        <option value="0-30">0-30 mins</option>
-                        <option value="30-60">30-60 mins</option>
-                        <option value="60-90">60-90 mins</option>
-                        <option value="90+">90+ mins</option>
-                      </Select>
+                      <Input
+                      type="number"
+                      placeholder='Select duration'
+                      name="workoutDuration"
+                      value={weeklyData[day]?.workoutDuration || ''}
+                      onChange={(e) => handleChange(e, day)}
+                      bg="white"
+                      borderColor={formBorderColor}
+                      _placeholder={{ color: 'gray.500' }}
+                    />
+                      // <Select
+                      //   name="workoutDuration"
+                      //   value={weeklyData[day]?.workoutDuration || ''}
+                      //   onChange={(e) => handleChange(e, day)}
+                      //   bg="white"
+                      //   borderColor={formBorderColor}
+                      //   _placeholder={{ color: 'gray.500' }}
+                      // >
+                      //   <option value="">Select duration</option>
+                      //   <option value="25">0-30 mins</option>
+                      //   <option value="45">30-60 mins</option>
+                      //   <option value="60">60-90 mins</option>
+                      //   <option value="90">90+ mins</option>
+                      // </Select>
                     ) : (
                       <Text>Duration: {weeklyData[day]?.workoutDuration || 'N/A'}</Text>
                     )}

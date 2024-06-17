@@ -9,10 +9,21 @@ import { SignUp } from './Signup';
 const SignUpForm = ({ setres }) => {
   const [next, setNext] = useState(false);
   const [formData, setFormData] = useState({
+    schedulearr: [],
+  doctorAppointments: [],
+  refresh:true,
+  delete:false,
+
+  weeklyData: {},
+  editMode: {},
+
+  loading: false,
+  data: null,
+  error: null,
     refresh:false,
-    calories: [0, 0, 0, 0, 0, 0, 0],
+    calories: [],
     age: "",
-    steps: [0, 0, 0, 0, 0, 0, 0],
+    steps: [],
     goal: "",
     gender: "",
     weight: '',
@@ -29,7 +40,7 @@ const SignUpForm = ({ setres }) => {
     fullName: "",
     appointment: null,
     height: "",
-    exerciseTime: [0, 0, 0, 0, 0, 0, 0],
+    exerciseTime: [],
     termsAccepted: ''
   });
 

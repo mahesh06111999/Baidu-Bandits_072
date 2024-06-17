@@ -3,7 +3,7 @@ import { Box, Button, Flex, Heading, Image, Text } from '@chakra-ui/react';
 import { Link, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-import logo from '../assets/logo.png';
+import logo from '../assets/blueLogo.jpg'
 import { auth } from '../auth/firebase';
 const MotionFlex = motion(Flex);
 const MotionHeading = motion(Heading);
@@ -23,17 +23,17 @@ const Home = () => {
         p={0}
         alignItems={'center'}
       >
-        <Box>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+        <Box >
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft:'30px'}}>
             <Image
               src={logo}
               alt="CalFit Logo"
-              width={'70px'}
-              height={'60px'}
+              
+              width={'140px'}
+              height={'80px'}
               margin={'5'}
             />
 
-            <p style={{ color: 'white', fontSize: '30px' }}>Be Fit</p>
           </div>
         </Box>
         <Flex gap={4}>

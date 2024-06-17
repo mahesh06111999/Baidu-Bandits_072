@@ -4,6 +4,7 @@ export const ADDTOSCHEDULE = 'ADDTOSCHEDULE';
 export const COMPLETE = 'COMPLETE';
 export const BOOKAPPOINTMENT = 'BOOKAPPOINTMENT';
 export const DELETEAPPOINTMENT = 'DELETEAPPOINTMENT';
+export const DAILY = "DAILY"
 
 // action types
 export const FETCH_USER_DATA_REQUEST = 'FETCH_USER_DATA_REQUEST';
