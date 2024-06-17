@@ -1,18 +1,20 @@
-// import React from 'react';
-// import { ChakraProvider, Box, Heading, Text, Image, Button, Grid, GridItem } from '@chakra-ui/react';
-// import { useSelector } from 'react-redux';
-// import { auth } from "../auth/firebase";
-// import Navbar from '../Components/Navbar';
-// import RightSideBox from '../Components/RightSideBox';
-// import { Navigate } from 'react-router';
-// import yoga from '../assets/yoga.png';
-// import dumble from '../assets/dumble.png';
-// import walk from '../assets/walk.png';
-// import walkinggraph from '../assets/walkinggraph.png';
-// import fitnesstimer from '../assets/fitnesstimer.png';
-// import image3 from '../assets/image3.png';
-// import bargraph from '../assets/bargraph.png';
-// import report from '../assets/report.png';
+import React from 'react';
+<<<<<<< HEAD
+import { ChakraProvider, Box, Heading, Text, Image, Button, Grid, GridItem } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
+import { auth } from "../auth/firebase";
+import Navbar from '../Components/Navbar';
+import RightSideBox from '../Components/RightSideBox';
+import { Navigate } from 'react-router';
+import yoga from '../assets/yoga.png';
+import dumble from '../assets/dumble.png';
+import walk from '../assets/walk.png';
+import walkinggraph from '../assets/walkinggraph.png';
+import fitnesstimer from '../assets/fitnesstimer.png';
+import image3 from '../assets/image3.png';
+import bargraph from '../assets/bargraph.png';
+import report from '../assets/report.png';
+=======
 import { ChakraProvider, Box, Heading, Text, Image, Button, Grid, GridItem,CircularProgress,CircularProgressLabel } from '@chakra-ui/react';
 import image3 from '../assets/image3.png';
 import bargraph from '../assets/bargraph.png';
@@ -27,35 +29,14 @@ import walk from '../assets/walk.png'
 import walkinggraph from '../assets/walkinggraph.png'
 import fitnesstimer from '../assets/fitnesstimer.png'
 import { useDispatch, useSelector } from 'react-redux';
+>>>>>>> 02923e85bdaecddb372e5d8005fbc39feda24353
 
-// const Dashboard = () => {
-//   const state = useSelector(state => state);
-//   // const weeklyData = useSelector(state => state.weeklyData);
-
-//   if (!auth?.currentUser?.email) return <Navigate replace to={"/"} />;
-
-//   const totalCaloriesBurned = Object.values(weeklyData).reduce((acc, day) => {
-//     return day.caloriesBurned ? acc + parseInt(day.caloriesBurned, 10) : acc;
-//   }, 0);
-
-//   const totalStepsTaken = Object.values(weeklyData).reduce((acc, day) => {
-//     const steps = day.stepsTaken ? parseInt(day.stepsTaken.replace(/\D/g, ''), 10) : 0;
-//     return acc + steps;
-//   }, 0);
-
-  // return (
-const Dashboard = () => { 
-  const dispatch = useDispatch();
-  const state = useSelector(state=>state) 
+const Dashboard = () => {
+  const state = useSelector(state => state);
   const weeklyData = useSelector(state => state.weeklyData);
 
-    
-  if(auth?.currentUser?.email && state.refresh){
-    console.log("fetch working.....");
-    fetchData(dispatch)
-  }
+  if (!auth?.currentUser?.email) return <Navigate replace to={"/"} />;
 
-  
   const totalCaloriesBurned = Object.values(weeklyData).reduce((acc, day) => {
     return day.caloriesBurned ? acc + parseInt(day.caloriesBurned, 10) : acc;
   }, 0);
@@ -65,6 +46,18 @@ const Dashboard = () => {
     return acc + steps;
   }, 0);
 
+<<<<<<< HEAD
+  return (
+=======
+const Dashboard = () => { 
+  const dispatch = useDispatch();
+  const state = useSelector(state=>state) 
+
+    
+  if(auth?.currentUser?.email && state.refresh){
+    console.log("fetch working.....");
+    fetchData(dispatch)
+  }
   return (
     <>
     {
@@ -74,6 +67,7 @@ const Dashboard = () => {
       (auth?.currentUser?.email && state.admin) && <Navigate replace to={"/admindashboard"}/>
     }
 
+>>>>>>> 02923e85bdaecddb372e5d8005fbc39feda24353
     <div style={{ display: 'flex' }}>
       <Navbar />
       <ChakraProvider>
@@ -189,7 +183,6 @@ const Dashboard = () => {
       </ChakraProvider>
       <RightSideBox />
     </div>
-    </>
   );
 };
 
