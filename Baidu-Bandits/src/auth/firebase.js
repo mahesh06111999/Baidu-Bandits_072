@@ -29,3 +29,5 @@ export function updateData(data) {
   updateDoc(doc(db, 'user', auth.currentUser.email), data);
 }
 
+
+

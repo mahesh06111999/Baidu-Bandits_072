@@ -15,6 +15,19 @@
     font-weight: bold;
     margin-left: 20px;
   }
+
+  .delete-button{
+    background-color: #ff4b5c;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    margin: 3px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;  
+    transition: background-color 0.3s ease;
+  }
+
   
   .logout-button {
     background-color: #ff4b5c;
@@ -64,3 +77,22 @@
     color: #333;
   }
   
+  /* table */
+  
+.listcont{
+  display: grid;
+  width: 100%;
+  grid-template-columns:  19% 22% 8% 10% 10% 10% 10% 10%;
+}
+.head{
+  background: #333;
+  color: white;
+  padding: 5px;
+  font-weight: 700;
+  font-size: 17px;
+}
+.items{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

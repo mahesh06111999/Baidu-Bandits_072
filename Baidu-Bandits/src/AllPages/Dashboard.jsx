@@ -21,7 +21,7 @@ const Dashboard = () => {
   const state = useSelector(state=>state) 
 
     
-  if(auth?.currentUser?.email && !state.refresh){
+  if(auth?.currentUser?.email && state.refresh){
     console.log("fetch working.....");
     fetchData(dispatch)
   }

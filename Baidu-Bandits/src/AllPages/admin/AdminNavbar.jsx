@@ -1,21 +1,24 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { auth } from '../../auth/firebase';
 
 
 const AdminNavbar = () => {
-  const handleLogout = async () => {
+  const signOff = async () => {
     try {
       await signOut(auth);
     } catch (error) {
       console.error(error);
     } finally {
-      window.location.reload()
+    
+      console.log("signedOut");
     }
   };
 
   return (
     <nav className="navbar">
       <div className="brand">Admin Dashboard</div>
-      <button className="logout-button" onClick={handleLogout}>Logout</button>
+      <button className="logout-button" onClick={signOff}>Logout</button>
     </nav>
   );
 };

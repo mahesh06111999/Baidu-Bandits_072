@@ -18,11 +18,15 @@ import {
 import { auth, db, fetchData } from "../auth/firebase";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { Navigate } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAuth, deleteUser } from "firebase/auth";
+import { deleteDoc, doc } from 'firebase/firestore';
 
 
 export const SignIn = ({ setres }) => {
   const dispatch =useDispatch()
+  const admin = useSelector(state=>state?.admin)
+  const del = useSelector(state=>state?.delete)
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -57,6 +61,32 @@ export const SignIn = ({ setres }) => {
     }
   };
 
+  
+
+
+if(del){
+  deleteDoc(doc(db,"user",auth?.currentUser?.email)).then(deleteUser(auth.currentUser)).then(() => {
+  toast({
+    title: "Error",
+    description: "This account is already DELETED",
+    status: "error",
+    duration: 5000,
+    isClosable: true,
+  });
+}).catch((error) => {
+  console.log(error)
+});
+}
+
+
+
+
+
+
+
+
+
+
   const signIn = async () => {
     if (!validateEmail(email) || !validatePassword(password)) {
       toast({
@@ -88,7 +118,6 @@ export const SignIn = ({ setres }) => {
       });
     } finally {    
       fetchData(dispatch)
-      setEmail("")
     }
   };
 
@@ -110,7 +139,7 @@ export const SignIn = ({ setres }) => {
   return (
   <>
     {
-      auth?.currentUser?.email && <Navigate replace to={"/dashboard"}/>
+      auth?.currentUser?.email && (admin ? (<Navigate replace to={"/admindashboard"}/>):(<Navigate replace to={"/dashboard"}/>))
     }
     <Flex height='100vh' width='100%' justify='center' alignItems='center' bg={gradientBg}>
       <Box
