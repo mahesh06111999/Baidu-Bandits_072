@@ -70,13 +70,17 @@ import {
                 <Text>{user.termsAccepted ? 'Yes' : 'No'}</Text>
               </GridItem>
               <GridItem colSpan={2}>
-                <Text fontWeight="bold">Appointment:</Text>
-                <Text>{new Date(user.appointment.seconds * 1000).toLocaleString()}</Text>
-              </GridItem>
-              <GridItem colSpan={2}>
                 <Text fontWeight="bold">Tracker:</Text>
                 <Box pl={4}>
-                  {Object.entries(user.tracker).map(([day, details]) => (
+                  {/* {Object.entries(user.tracker).map(([day, details]) => (
+                    <Box key={day} mb={2}>
+                      <Text fontWeight="bold" textTransform="capitalize">{day}:</Text>
+                      <Text>Steps: {details.steps}</Text>
+                      <Text>Calories: {details.calories}</Text>
+                      <Text>Worked Out: {details.workedOut ? 'Yes' : 'No'}</Text>
+                    </Box>
+                  ))} */}
+                  {user.weeklyData && Object.entries(user.weeklyData).map(([day, details]) => (
                     <Box key={day} mb={2}>
                       <Text fontWeight="bold" textTransform="capitalize">{day}:</Text>
                       <Text>Steps: {details.steps}</Text>
