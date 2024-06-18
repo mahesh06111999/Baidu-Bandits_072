@@ -33,6 +33,48 @@ https://baidu-bandits-072-git-main-sanjukumari-techs-projects.vercel.app/
 
 **Server:** Firebase
 
+---
+## Directory Structure
+
+```plaintext
+Baidu-Bandits/
+├── public/
+├── src/
+│   ├── AllPages/
+│   │   ├── admin/
+│   │   │   ├── AdminDashboard.jsx
+│   │   │   ├── AdminNavbar.jsx
+│   │   │   ├── UserModal.jsx
+│   │   │   ├── adminstyles.css
+│   │   ├── ActivityTracker.jsx
+│   │   ├── AllRoutes.jsx
+│   │   ├── Auth.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── DoctorAppointment.jsx
+│   │   ├── ExerciseRecommendation.jsx
+│   │   ├── Home.jsx
+│   │   ├── MentalWellness.jsx
+│   │   ├── Nutrition.jsx
+│   │   ├── PersonalTraining.jsx
+│   ├── assets/
+|   │   ├── icons/
+│   ├── auth/
+│   ├── pageComponents/
+|   │   ├── MentalWellnessComp.jsx
+|   │   ├── NutritionComp.jsx
+│   ├── redux/
+|   │   ├── actionTypes.js
+|   │   ├── reducer.js
+|   │   ├── store.js
+│   ├── styles/
+│   │   ├── mentalWellness.css
+│   ├── App.css
+│   ├── App.jsx
+│   ├── main.jsx
+│   ├── index.css
+├── index.html/
+```
+
 
 ## How to use
 
@@ -52,7 +94,8 @@ npm run dev
 ````
 ## Screenshots
 
-<img src="../Baidu-Bandits_072/Baidu-Bandits/src/assets/desktopview.png">
+<img src="./Baidu-Bandits/src/assets/desktopview.png" alt="Mobile View" width="500" 
+style="box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.8);">
 
 
 ## Authors
